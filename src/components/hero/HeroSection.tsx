@@ -12,12 +12,12 @@ import {
 } from "@/components/common";
 import { studioProfile } from "@/data/profile";
 
-export function StudioHero() {
+export function HeroSection() {
   return (
-    <PageSection spacing="normal" className="border-b border-[var(--border-subtle)] bg-grid-pattern">
+    <PageSection id="top" spacing="normal" className="border-b border-[var(--border-subtle)] bg-grid-pattern relative">
       <Container size="lg">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Core Identity & Intent */}
+          {/* Main Copy & Intent */}
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="cyan" mono size="sm">
@@ -29,50 +29,46 @@ export function StudioHero() {
             </div>
 
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
+              <div className="font-mono text-sm uppercase tracking-wider text-[var(--accent-cyan)] font-medium">
                 {studioProfile.name}
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--text-primary)] leading-[1.1]">
+                {studioProfile.headline}
               </h1>
-              <p className="font-mono text-sm sm:text-base text-[var(--accent-cyan)] font-medium">
-                {studioProfile.tagline}
-              </p>
             </div>
 
             <p className="text-base sm:text-lg text-[var(--text-secondary)] font-normal leading-relaxed max-w-2xl">
-              {studioProfile.headline}
+              {studioProfile.supportingText}
             </p>
 
-            {/* Specialization Tags */}
-            <div className="flex flex-wrap gap-2 pt-1">
-              {studioProfile.specializations.map((spec) => (
-                <span
-                  key={spec}
-                  className="font-mono text-xs bg-[var(--bg-surface-2)] border border-[var(--border-default)] text-[var(--text-secondary)] px-3 py-1 rounded-[var(--radius-sm)]"
-                >
-                  {spec}
-                </span>
-              ))}
-            </div>
-
-            {/* Primary Action Row */}
-            <div className="flex flex-wrap items-center gap-3 pt-4">
-              <Button variant="primary" size="md" href="#competencies">
-                View Competencies
-              </Button>
-              <Button variant="secondary" size="md" href="#lab">
-                Engineering Lab
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-3">
+              <Button
+                variant="primary"
+                size="md"
+                href={studioProfile.ctas.primary.href}
+              >
+                {studioProfile.ctas.primary.label}
               </Button>
               <Button
-                variant="outline"
+                variant="secondary"
                 size="md"
-                href={studioProfile.links.upwork}
+                href={studioProfile.ctas.secondary.href}
+              >
+                {studioProfile.ctas.secondary.label}
+              </Button>
+              <Button
+                variant="ghost"
+                size="md"
+                href={studioProfile.links.github}
                 isExternal
               >
-                Upwork Profile
+                GitHub Profile
               </Button>
             </div>
           </div>
 
-          {/* Right Column: Studio Telemetry / Workstation Card */}
+          {/* Right Column: Systems Telemetry Card */}
           <div className="lg:col-span-5">
             <Card variant="default" className="border-[var(--border-default)] bg-[var(--bg-surface-1)]">
               <CardHeader className="border-b border-[var(--border-subtle)] pb-3">
@@ -80,15 +76,15 @@ export function StudioHero() {
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent-emerald)] font-semibold">
-                      ENGINEERING_SPECS
+                      ENGINEERING_SPEC
                     </span>
                   </div>
                   <span className="font-mono text-[10px] text-[var(--text-muted)]">
                     DTU // VERIFIED
                   </span>
                 </div>
-                <CardTitle as="h3" className="text-sm font-mono text-[var(--text-primary)] pt-1">
-                  Studio Environment Telemetry
+                <CardTitle as="h2" className="text-sm font-mono text-[var(--text-primary)] pt-1">
+                  System &amp; Workstation Parameters
                 </CardTitle>
               </CardHeader>
 
@@ -117,7 +113,7 @@ export function StudioHero() {
                   Availability: Open for Contract
                 </span>
                 <Badge variant="emerald" size="sm">
-                  Ready
+                  Available
                 </Badge>
               </CardFooter>
             </Card>

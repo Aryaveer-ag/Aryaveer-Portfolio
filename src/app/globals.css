@@ -74,6 +74,21 @@ body {
   background-size: 24px 24px;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms var(--ease-standard) forwards;
+}
+
 /* Accessibility: Respect user's motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
