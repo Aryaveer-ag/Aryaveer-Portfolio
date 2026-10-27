@@ -27,13 +27,19 @@ export function LabSection() {
         />
 
         {/* Simulation Selector Tab Bar */}
-        <div className="flex border-b border-[var(--border-subtle)] mb-8 font-mono text-xs overflow-x-auto">
+        <div
+          role="tablist"
+          aria-label="Engineering Lab Simulators"
+          className="flex border-b border-[var(--border-subtle)] mb-8 font-mono text-xs overflow-x-auto"
+        >
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSimulation === "flash-sale"}
             onClick={() => setActiveSimulation("flash-sale")}
-            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 focus-visible:outline-none ${
+            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 rounded-t-[var(--radius-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
               activeSimulation === "flash-sale"
-                ? "border-[var(--accent-emerald)] text-[var(--accent-emerald)]"
+                ? "border-[var(--accent-emerald)] text-[var(--accent-emerald)] bg-[var(--accent-emerald)]/10"
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >
@@ -43,10 +49,12 @@ export function LabSection() {
 
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSimulation === "architecture"}
             onClick={() => setActiveSimulation("architecture")}
-            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 focus-visible:outline-none ${
+            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 rounded-t-[var(--radius-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
               activeSimulation === "architecture"
-                ? "border-[var(--accent-cyan)] text-[var(--accent-cyan)]"
+                ? "border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >
@@ -56,10 +64,12 @@ export function LabSection() {
 
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSimulation === "rate-limiter"}
             onClick={() => setActiveSimulation("rate-limiter")}
-            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 focus-visible:outline-none ${
+            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 rounded-t-[var(--radius-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
               activeSimulation === "rate-limiter"
-                ? "border-[var(--accent-cyan)] text-[var(--accent-cyan)]"
+                ? "border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >
@@ -69,10 +79,12 @@ export function LabSection() {
 
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSimulation === "cache-eviction"}
             onClick={() => setActiveSimulation("cache-eviction")}
-            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 focus-visible:outline-none ${
+            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 rounded-t-[var(--radius-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
               activeSimulation === "cache-eviction"
-                ? "border-[var(--accent-indigo)] text-[var(--accent-indigo)]"
+                ? "border-[var(--accent-indigo)] text-[var(--accent-indigo)] bg-[var(--accent-indigo)]/10"
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >

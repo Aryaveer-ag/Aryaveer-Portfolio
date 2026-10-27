@@ -243,6 +243,35 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
       "4. **Cache Eviction Visualizer:** LRU (Least Recently Used) vs. LFU (Least Frequently Used) hit/miss comparison.\n\n" +
       "Visit the [Engineering Lab](#lab) to run the simulations directly in your browser.",
   },
+
+  // 8. Freelance Services & Upwork Engagements
+  {
+    id: "freelance-services",
+    keywords: [
+      "services",
+      "freelance services",
+      "consulting",
+      "contracts",
+      "upwork",
+      "escrow",
+      "offer",
+      "hire",
+      "engagement",
+    ],
+    patterns: [
+      /what services/i,
+      /freelance.*offer/i,
+      /how do you work/i,
+      /engagement.*model/i,
+      /upwork.*contract/i,
+    ],
+    answer:
+      "Aryaveer offers 3 structured freelance engineering engagement models with 100% Upwork Escrow protection:\n\n" +
+      "1. **Backend & Systems Architecture:** Production REST APIs in Node.js/TypeScript or FastAPI, Redis Lua atomic scripts, and PostgreSQL schema design.\n" +
+      "2. **Applied AI & ML Pipelines:** Grounded RAG retrieval pipelines with dense embeddings and PyTorch computer vision inspection models.\n" +
+      "3. **Systems Profiling & Code Modernization:** Latency bottleneck profiling, race condition elimination, and strict TypeScript/Python refactoring.\n\n" +
+      "Explore all offerings and select an engagement model in the [Services & Contact Section](#contact).",
+  },
 ];
 
 export const FALLBACK_UNKNOWN_RESPONSE =

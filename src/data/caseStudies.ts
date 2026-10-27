@@ -1,4 +1,4 @@
-import { ProjectCaseStudy } from "@/types/projects";
+import type { ProjectCaseStudy } from "../types/projects.ts";
 
 export const caseStudiesData: ProjectCaseStudy[] = [
   {

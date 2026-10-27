@@ -60,7 +60,7 @@ export function ArchitectureExplorer() {
         <button
           type="button"
           onClick={handleReset}
-          className="self-start sm:self-center font-mono text-xs px-3 py-1.5 rounded bg-[var(--bg-surface-3)] text-slate-300 hover:text-white border border-[var(--border-subtle)] hover:border-slate-500 transition-colors cursor-pointer"
+          className="self-start sm:self-center font-mono text-xs px-3 py-1.5 rounded bg-[var(--bg-surface-3)] text-slate-300 hover:text-white border border-[var(--border-subtle)] hover:border-slate-500 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)]"
         >
           Reset Selection
         </button>
@@ -153,7 +153,7 @@ export function ArchitectureExplorer() {
                   <button
                     type="button"
                     onClick={() => handleSelectConnection(clientToFastapi.id)}
-                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer ${
+                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
                       isSelected
                         ? "bg-cyan-950/70 border-cyan-500 text-cyan-300 font-bold"
                         : "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-slate-300 hover:border-slate-600"
@@ -198,7 +198,7 @@ export function ArchitectureExplorer() {
                   <button
                     type="button"
                     onClick={() => handleSelectConnection(fastapiToRedis.id)}
-                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer ${
+                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
                       isSelected
                         ? "bg-emerald-950/70 border-emerald-500 text-emerald-300 font-bold"
                         : "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-slate-300 hover:border-slate-600"
@@ -243,7 +243,7 @@ export function ArchitectureExplorer() {
                   <button
                     type="button"
                     onClick={() => handleSelectConnection(fastapiToPostgres.id)}
-                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer ${
+                    className={`w-full p-2 rounded text-left font-mono text-[11px] flex items-center justify-between border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-indigo)] ${
                       isSelected
                         ? "bg-amber-950/70 border-amber-500 text-amber-300 font-bold"
                         : "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-slate-300 hover:border-slate-600"
