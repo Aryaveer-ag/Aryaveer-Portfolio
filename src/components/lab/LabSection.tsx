@@ -5,10 +5,11 @@ import { Container, PageSection, SectionHeading, Badge } from "@/components/comm
 import { FlashSaleEngineSim } from "./FlashSaleEngineSim";
 import { RateLimiterSim } from "./RateLimiterSim";
 import { CacheEvictionSim } from "./CacheEvictionSim";
+import { ArchitectureExplorer } from "@/components/architecture/ArchitectureExplorer";
 
 export function LabSection() {
   const [activeSimulation, setActiveSimulation] = useState<
-    "flash-sale" | "rate-limiter" | "cache-eviction"
+    "flash-sale" | "architecture" | "rate-limiter" | "cache-eviction"
   >("flash-sale");
 
   return (
@@ -17,10 +18,10 @@ export function LabSection() {
         <SectionHeading
           eyebrow="03 // IN-BROWSER SIMULATIONS"
           title="The Engineering Lab"
-          description="Interactive, browser-based systems and algorithmic simulations running entirely in pure TypeScript with zero external server latency. Observe atomic concurrency controls, backpressure token refill dynamics, and cache eviction tradeoffs."
+          description="Interactive, browser-based systems and algorithmic simulations running entirely in pure TypeScript with zero external server latency. Observe atomic concurrency controls, system architecture topologies, and cache eviction tradeoffs."
           action={
             <Badge variant="emerald" dot pulse size="sm">
-              3 Live Simulations
+              4 Technical Modules Active
             </Badge>
           }
         />
@@ -37,7 +38,20 @@ export function LabSection() {
             }`}
           >
             <span>01 // FEATURED</span>
-            <span>Flash Sale Engine</span>
+            <span>Flash Sale Simulator</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveSimulation("architecture")}
+            className={`py-3 px-4 font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 shrink-0 focus-visible:outline-none ${
+              activeSimulation === "architecture"
+                ? "border-[var(--accent-cyan)] text-[var(--accent-cyan)]"
+                : "border-transparent text-[var(--text-secondary)] hover:text-white"
+            }`}
+          >
+            <span>02 // ARCHITECTURE</span>
+            <span>System Topology Explorer</span>
           </button>
 
           <button
@@ -49,7 +63,7 @@ export function LabSection() {
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >
-            <span>02 //</span>
+            <span>03 //</span>
             <span>Distributed Rate Limiter</span>
           </button>
 
@@ -62,14 +76,16 @@ export function LabSection() {
                 : "border-transparent text-[var(--text-secondary)] hover:text-white"
             }`}
           >
-            <span>03 //</span>
+            <span>04 //</span>
             <span>Cache Eviction (LRU/LFU)</span>
           </button>
         </div>
 
-        {/* Active Simulation View */}
+        {/* Active View */}
         {activeSimulation === "flash-sale" ? (
           <FlashSaleEngineSim />
+        ) : activeSimulation === "architecture" ? (
+          <ArchitectureExplorer />
         ) : activeSimulation === "rate-limiter" ? (
           <RateLimiterSim />
         ) : (

@@ -7,7 +7,7 @@
     "prebuild": "node -e \"const fs=require('fs'); if(fs.existsSync('.next')) fs.rmSync('.next',{recursive:true,force:true})\"",
     "build": "next build --webpack",
     "start": "next start",
-    "test": "node --test --experimental-strip-types tests/flashSaleEngine.test.ts",
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
     "lint": "eslint"
   },
   "dependencies": {

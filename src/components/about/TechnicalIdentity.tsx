@@ -14,7 +14,7 @@ import { studioProfile } from "@/data/profile";
 
 export function TechnicalIdentity() {
   return (
-    <PageSection id="about" spacing="spacious" divided>
+    <PageSection id="focus-areas" spacing="spacious" divided>
       <Container size="lg">
         <SectionHeading
           eyebrow="02 // TECHNICAL IDENTITY"

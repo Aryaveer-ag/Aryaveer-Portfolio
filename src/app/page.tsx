@@ -4,7 +4,9 @@ import { HeroSection } from "@/components/hero/HeroSection";
 import { CaseStudiesSection } from "@/components/projects/CaseStudiesSection";
 import { TechnicalIdentity } from "@/components/about/TechnicalIdentity";
 import { LabSection } from "@/components/lab/LabSection";
+import { AboutSection } from "@/components/about/AboutSection";
 import { ClosingCTA } from "@/components/contact/ClosingCTA";
+import { PortfolioAssistantWidget } from "@/components/assistant";
 
 export default function HomePage() {
   return (
@@ -19,18 +21,24 @@ export default function HomePage() {
         {/* 3. Interactive Case Studies */}
         <CaseStudiesSection />
 
-        {/* 4. Technical Identity */}
-        <TechnicalIdentity />
-
-        {/* 5. Live Engineering Lab Simulations */}
+        {/* 4. Live Engineering Lab Simulations & Architecture Explorer */}
         <LabSection />
 
-        {/* 6. Closing CTA / Contact */}
+        {/* 5. Areas of Specialization */}
+        <TechnicalIdentity />
+
+        {/* 6. About, Academic Background, Profiles & Skills Explorer */}
+        <AboutSection />
+
+        {/* 7. Closing CTA / Contact */}
         <ClosingCTA />
       </main>
 
       {/* Global Footer */}
       <Footer />
+
+      {/* 8. Floating AI Portfolio Assistant (Deterministic Facts Engine) */}
+      <PortfolioAssistantWidget />
     </div>
   );
 }
