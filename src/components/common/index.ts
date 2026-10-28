@@ -5,3 +5,4 @@ export * from "./Button";
 export * from "./Badge";
 export * from "./Card";
 export * from "./TextLink";
+export * from "./Reveal";

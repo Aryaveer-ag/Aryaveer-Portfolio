@@ -89,6 +89,19 @@ body {
   animation: fadeIn 200ms var(--ease-standard) forwards;
 }
 
+/* Viewport scroll reveal utilities */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 350ms var(--ease-standard), transform 350ms var(--ease-standard);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Accessibility: Respect user's motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -96,5 +109,11 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

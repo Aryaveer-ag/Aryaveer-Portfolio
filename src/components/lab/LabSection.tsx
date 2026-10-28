@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Container, PageSection, SectionHeading, Badge } from "@/components/common";
+import { Container, PageSection, SectionHeading, Badge, Reveal } from "@/components/common";
 import { FlashSaleEngineSim } from "./FlashSaleEngineSim";
 import { RateLimiterSim } from "./RateLimiterSim";
 import { CacheEvictionSim } from "./CacheEvictionSim";
@@ -15,16 +15,18 @@ export function LabSection() {
   return (
     <PageSection id="lab" spacing="spacious" divided>
       <Container size="lg">
-        <SectionHeading
-          eyebrow="03 // IN-BROWSER SIMULATIONS"
-          title="The Engineering Lab"
-          description="Interactive, browser-based systems and algorithmic simulations running entirely in pure TypeScript with zero external server latency. Observe atomic concurrency controls, system architecture topologies, and cache eviction tradeoffs."
-          action={
-            <Badge variant="emerald" dot pulse size="sm">
-              4 Technical Modules Active
-            </Badge>
-          }
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="03 // IN-BROWSER SIMULATIONS"
+            title="The Engineering Lab"
+            description="Interactive, browser-based systems and algorithmic simulations running entirely in pure TypeScript with zero external server latency. Observe atomic concurrency controls, system architecture topologies, and cache eviction tradeoffs."
+            action={
+              <Badge variant="emerald" dot pulse size="sm">
+                4 Technical Modules Active
+              </Badge>
+            }
+          />
+        </Reveal>
 
         {/* Simulation Selector Tab Bar */}
         <div
@@ -94,15 +96,17 @@ export function LabSection() {
         </div>
 
         {/* Active View */}
-        {activeSimulation === "flash-sale" ? (
-          <FlashSaleEngineSim />
-        ) : activeSimulation === "architecture" ? (
-          <ArchitectureExplorer />
-        ) : activeSimulation === "rate-limiter" ? (
-          <RateLimiterSim />
-        ) : (
-          <CacheEvictionSim />
-        )}
+        <Reveal delayMs={80}>
+          {activeSimulation === "flash-sale" ? (
+            <FlashSaleEngineSim />
+          ) : activeSimulation === "architecture" ? (
+            <ArchitectureExplorer />
+          ) : activeSimulation === "rate-limiter" ? (
+            <RateLimiterSim />
+          ) : (
+            <CacheEvictionSim />
+          )}
+        </Reveal>
       </Container>
     </PageSection>
   );

@@ -245,7 +245,21 @@ export function ParticleNetwork() {
       }
     };
 
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const deltaY = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+
+      // Restrained scroll impulse: clamp to prevent sudden jumps on rapid swipe
+      const clampedDelta = Math.max(-15, Math.min(15, deltaY));
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].y -= clampedDelta * 0.06;
+      }
+    };
+
     window.addEventListener("resize", resizeCanvas, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     if (finePointerQuery.matches) {
@@ -255,6 +269,7 @@ export function ParticleNetwork() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (finePointerQuery.matches) {

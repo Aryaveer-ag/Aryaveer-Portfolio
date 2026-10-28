@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Container, PageSection, SectionHeading, Badge } from "@/components/common";
+import { Container, PageSection, SectionHeading, Badge, Reveal } from "@/components/common";
 import { caseStudiesData } from "@/data/caseStudies";
 import { ProjectCaseStudy } from "@/types/projects";
 import { ProjectFilter, ProjectCategoryFilter } from "./ProjectFilter";
@@ -54,16 +54,18 @@ export function CaseStudiesSection() {
   return (
     <PageSection id="projects" spacing="spacious" divided>
       <Container size="lg">
-        <SectionHeading
-          eyebrow="01 // ARCHITECTURE & CASE STUDIES"
-          title="Interactive Engineering Case Studies"
-          description="In-depth architectural breakdowns of distributed systems, machine learning pipelines, and computer vision models. Inspect sequence topologies, tradeoff analyses, failure modes, and implementation code."
-          action={
-            <Badge variant="cyan" mono size="sm">
-              {caseStudiesData.length} Deep-Dive Systems
-            </Badge>
-          }
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="01 // ARCHITECTURE & CASE STUDIES"
+            title="Interactive Engineering Case Studies"
+            description="In-depth architectural breakdowns of distributed systems, machine learning pipelines, and computer vision models. Inspect sequence topologies, tradeoff analyses, failure modes, and implementation code."
+            action={
+              <Badge variant="cyan" mono size="sm">
+                {caseStudiesData.length} Deep-Dive Systems
+              </Badge>
+            }
+          />
+        </Reveal>
 
         {/* Category Filter Pills */}
         <ProjectFilter
@@ -74,12 +76,13 @@ export function CaseStudiesSection() {
 
         {/* Case Studies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredProjects.map((project) => (
-            <CaseStudyCard
-              key={project.id}
-              project={project}
-              onOpenDrawer={handleOpenDrawer}
-            />
+          {filteredProjects.map((project, idx) => (
+            <Reveal key={project.id} delayMs={idx % 2 === 0 ? 0 : 80}>
+              <CaseStudyCard
+                project={project}
+                onOpenDrawer={handleOpenDrawer}
+              />
+            </Reveal>
           ))}
         </div>
 

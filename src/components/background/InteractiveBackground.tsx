@@ -109,15 +109,29 @@ export function InteractiveBackground() {
     // Initialize resting coordinates
     applyStyles(currentX, currentY);
 
+    let scrollRafId: number | null = null;
+    const handleScroll = () => {
+      if (scrollRafId === null) {
+        scrollRafId = requestAnimationFrame(() => {
+          const scrollOffset = (window.scrollY * 0.035) % 24;
+          container.style.setProperty("--scroll-y", `${scrollOffset.toFixed(2)}px`);
+          scrollRafId = null;
+        });
+      }
+    };
+
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     document.addEventListener("mouseleave", handlePointerLeave, { passive: true });
     window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
       document.removeEventListener("mouseleave", handlePointerLeave);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
+      if (scrollRafId) cancelAnimationFrame(scrollRafId);
     };
   }, []);
 
@@ -132,6 +146,7 @@ export function InteractiveBackground() {
           "--pointer-y": "25%",
           "--offset-x": "0px",
           "--offset-y": "0px",
+          "--scroll-y": "0px",
         } as React.CSSProperties
       }
     >
@@ -139,7 +154,8 @@ export function InteractiveBackground() {
       <div
         className="absolute inset-[-24px] bg-grid-pattern opacity-70 motion-safe:will-change-transform"
         style={{
-          transform: "translate3d(var(--offset-x, 0px), var(--offset-y, 0px), 0)",
+          transform:
+            "translate3d(var(--offset-x, 0px), calc(var(--offset-y, 0px) - var(--scroll-y, 0px)), 0)",
         }}
       />
 
@@ -168,7 +184,8 @@ export function InteractiveBackground() {
           backgroundImage:
             "radial-gradient(rgba(6, 182, 212, 0.45) 1.2px, transparent 1.2px)",
           backgroundSize: "24px 24px",
-          transform: "translate3d(var(--offset-x, 0px), var(--offset-y, 0px), 0)",
+          transform:
+            "translate3d(var(--offset-x, 0px), calc(var(--offset-y, 0px) - var(--scroll-y, 0px)), 0)",
           maskImage:
             "radial-gradient(320px circle at var(--pointer-x, 50%) var(--pointer-y, 25%), black 0%, transparent 80%)",
           WebkitMaskImage:

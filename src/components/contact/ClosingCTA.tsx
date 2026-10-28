@@ -10,6 +10,7 @@ import {
   CardTitle,
   CardContent,
   Badge,
+  Reveal,
 } from "@/components/common";
 import { studioProfile } from "@/data/profile";
 import { freelanceServices, engagementPolicies } from "@/data/services";
@@ -119,16 +120,18 @@ export function ClosingCTA() {
     <PageSection id="contact" spacing="spacious" divided className="relative">
       <Container size="lg" className="space-y-16">
         {/* Section Heading */}
-        <SectionHeading
-          eyebrow="04 // FREELANCE SERVICES & CONTRACTS"
-          title="Engineering Services &amp; Client Inquiries"
-          description="I take on freelance contracts and consulting engagements with a focus on robust backend systems, low-latency API architecture, and applied machine learning. All contracts can be structured through Upwork Escrow for mutual security."
-          action={
-            <Badge variant="emerald" dot pulse size="sm">
-              Accepting Contracts (Upwork Verified)
-            </Badge>
-          }
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="04 // FREELANCE SERVICES & CONTRACTS"
+            title="Engineering Services &amp; Client Inquiries"
+            description="I take on freelance contracts and consulting engagements with a focus on robust backend systems, low-latency API architecture, and applied machine learning. All contracts can be structured through Upwork Escrow for mutual security."
+            action={
+              <Badge variant="emerald" dot pulse size="sm">
+                Accepting Contracts (Upwork Verified)
+              </Badge>
+            }
+          />
+        </Reveal>
 
         {/* 1. Structured Freelance Engagement Models Grid */}
         <div className="space-y-4">

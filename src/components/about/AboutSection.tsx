@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardContent,
   Badge,
+  Reveal,
 } from "@/components/common";
 import { SkillsExplorer } from "@/components/skills/SkillsExplorer";
 import { ResumeProfilesCard } from "@/components/about/ResumeProfilesCard";
@@ -73,16 +74,18 @@ export function AboutSection() {
     <PageSection id="about" spacing="spacious" divided>
       <Container size="lg" className="space-y-16">
         {/* Section Heading */}
-        <SectionHeading
-          eyebrow="03 // BACKGROUND & TECHNICAL IDENTITY"
-          title="Engineering Foundations &amp; Academic Background"
-          description="A grounded profile of Aryaveer Agarwal: undergraduate engineering student at Delhi Technological University combining algorithmic principles with production-grade system design."
-          action={
-            <Badge variant="emerald" mono size="sm">
-              DTU Class of 2027
-            </Badge>
-          }
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="03 // BACKGROUND & TECHNICAL IDENTITY"
+            title="Engineering Foundations &amp; Academic Background"
+            description="A grounded profile of Aryaveer Agarwal: undergraduate engineering student at Delhi Technological University combining algorithmic principles with production-grade system design."
+            action={
+              <Badge variant="emerald" mono size="sm">
+                DTU Class of 2027
+              </Badge>
+            }
+          />
+        </Reveal>
 
         {/* Narrative & Academic Summary Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
