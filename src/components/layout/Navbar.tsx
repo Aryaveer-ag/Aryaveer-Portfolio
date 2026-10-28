@@ -60,6 +60,7 @@ export function Navbar() {
           <Button
             variant="primary"
             size="sm"
+            magnetic
             href="#contact"
           >
             {studioProfile.ctas.talk.label}

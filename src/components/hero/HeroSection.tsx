@@ -47,6 +47,7 @@ export function HeroSection() {
               <Button
                 variant="primary"
                 size="md"
+                magnetic
                 href={studioProfile.ctas.primary.href}
               >
                 {studioProfile.ctas.primary.label}
@@ -54,6 +55,7 @@ export function HeroSection() {
               <Button
                 variant="secondary"
                 size="md"
+                magnetic
                 href={studioProfile.ctas.secondary.href}
               >
                 {studioProfile.ctas.secondary.label}
