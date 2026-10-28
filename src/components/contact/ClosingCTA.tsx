@@ -116,7 +116,7 @@ export function ClosingCTA() {
   )}`;
 
   return (
-    <PageSection id="contact" spacing="spacious" divided className="bg-grid-pattern relative">
+    <PageSection id="contact" spacing="spacious" divided className="relative">
       <Container size="lg" className="space-y-16">
         {/* Section Heading */}
         <SectionHeading

@@ -14,7 +14,7 @@ import { studioProfile } from "@/data/profile";
 
 export function HeroSection() {
   return (
-    <PageSection id="top" spacing="normal" className="border-b border-[var(--border-subtle)] bg-grid-pattern relative">
+    <PageSection id="top" spacing="normal" className="border-b border-[var(--border-subtle)] relative">
       <Container size="lg">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Main Copy & Intent */}
