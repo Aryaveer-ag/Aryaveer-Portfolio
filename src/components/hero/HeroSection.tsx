@@ -72,11 +72,14 @@ export function HeroSection() {
           {/* Right Column: Systems Telemetry Card */}
           <div className="lg:col-span-5">
             <Reveal delayMs={100}>
-              <Card variant="default" className="border-[var(--border-default)] bg-[var(--bg-surface-1)]">
+              <Card variant="default" spotlight tilt className="border-[var(--border-default)] bg-[var(--bg-surface-1)]">
                 <CardHeader className="border-b border-[var(--border-subtle)] pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="relative flex h-2 w-2 shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 duration-1000" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]" />
+                      </span>
                       <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent-emerald)] font-semibold">
                         ENGINEERING_SPEC
                       </span>
@@ -114,7 +117,7 @@ export function HeroSection() {
                   <span className="font-mono text-[11px] text-[var(--text-secondary)]">
                     Availability: Open for Contract
                   </span>
-                  <Badge variant="emerald" size="sm">
+                  <Badge variant="emerald" dot pulse size="sm">
                     Available
                   </Badge>
                 </CardFooter>

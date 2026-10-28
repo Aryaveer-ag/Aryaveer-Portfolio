@@ -21,6 +21,8 @@ export function CaseStudyCard({ project, onOpenDrawer }: CaseStudyCardProps) {
   return (
     <Card
       variant="interactive"
+      spotlight
+      tilt
       className="flex flex-col justify-between border-[var(--border-default)]"
     >
       <div className="space-y-4">

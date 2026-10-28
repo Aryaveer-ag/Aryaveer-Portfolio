@@ -34,8 +34,10 @@ export function TechnicalIdentity() {
           {studioProfile.focusAreas.map((area, idx) => (
             <Reveal key={area.id} delayMs={idx % 2 === 0 ? 0 : 80}>
               <Card
-                variant="default"
-                className="flex flex-col justify-between border-[var(--border-default)] hover:border-[var(--border-strong)] transition-colors duration-200 h-full"
+                variant="interactive"
+                spotlight
+                tilt
+                className="flex flex-col justify-between border-[var(--border-default)] h-full"
               >
                 <div>
                   <CardHeader>

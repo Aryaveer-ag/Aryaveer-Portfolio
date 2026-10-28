@@ -73,11 +73,18 @@ export function Badge({
       {...props}
     >
       {dot && (
-        <span
-          className={`shrink-0 w-1.5 h-1.5 rounded-full ${
-            variantStyles[variant].dotColor
-          } ${pulse ? "animate-pulse" : ""}`}
-        />
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
+          {pulse && (
+            <span
+              className={`animate-ping absolute inline-flex h-full w-full rounded-full ${variantStyles[variant].dotColor} opacity-70`}
+            />
+          )}
+          <span
+            className={`relative inline-flex h-1.5 w-1.5 rounded-full ${
+              variantStyles[variant].dotColor
+            } ${pulse ? "shadow-[0_0_6px_currentColor]" : ""}`}
+          />
+        </span>
       )}
       <span>{children}</span>
     </span>
