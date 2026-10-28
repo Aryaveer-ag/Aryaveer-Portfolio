@@ -1,24 +1,32 @@
 # Aryaveer.dev — Interactive Engineering Studio
 
-A high-performance personal engineering studio and portfolio website for **Aryaveer Agarwal**, final-year B.Tech student at Delhi Technological University (DTU, Class of 2026), specializing in software development, backend systems, machine learning, and algorithm design.
+A high-performance personal engineering studio and portfolio website for **Aryaveer Agarwal**, B.Tech student in Electronics and Communications Engineering at Delhi Technological University (DTU, 2023–2027), specializing in backend & distributed systems, Agentic RAG, machine learning, and algorithmic problem-solving.
 
 ---
 
 ## Core System Pillars
 
-1. **Engineering-First Case Studies**:
-   - Deep-dive technical breakdowns of production-grade systems (`High-Concurrency Flash Sale Engine`, `AI-Powered Document Assistant`, `PCB Defect Detection System`).
+1. **Engineering-First Flagship Case Studies**:
+   - Deep-dive technical breakdowns of 4 production-grade systems:
+     - **FloatChat – Agentic RAG Platform for Oceanographic Data** (Llama-3, PostgreSQL + FAISS, sub-2s latency, 92% SQL accuracy).
+     - **High-Concurrency Flash Sale Engine** (FastAPI, Redis, PostgreSQL ACID with pessimistic row-level locking, 5,000+ concurrent requests, idempotency).
+     - **Automated PCB Quality Control Dashboard** (Decoupled Node.js + FastAPI microservice, React analytics, PyTorch, 25x faster screening).
+     - **Automated Insurance Policy Compliance Engine** (LangChain, GPT-4, FAISS, 95% clause precision, Chain-of-Thought explainability guardrails).
    - Architectural topology diagrams, tradeoff analyses, failure mode mitigations, and verifiable implementation source code.
-2. **Interactive In-Browser Engineering Lab**:
-   - **Flash Sale Engine Simulator**: Deterministic browser simulation modeling atomic Redis Lua decrements and two-phase reservation hold queues, verifying that inventory never drops below zero ($0$ overselling invariant).
+2. **Industry Experience & Leadership**:
+   - **Infosys Springboard ML Internship (AI-NutriCare)**: Big data NLP pipeline processing 500,000+ time-series records from the MIMIC-IV clinical database (50+ GB) for personalized nutrition across 20+ clinical conditions.
+   - **Cultural Council DTU PR Head & Kalakriti Art Society Lead**: Directed operations for 10+ major festivals including Engifest (150,000+ attendees), secured 50+ corporate sponsorships (OnePlus, Intel), and managed ₹15L+ budgets.
+   - **7 Verified Technical Certifications**: Google Cloud, Microsoft Azure, AWS, and freeCodeCamp.
+3. **Interactive In-Browser Engineering Lab**:
+   - **Flash Sale Engine Simulator**: Deterministic browser simulation modeling atomic decrements and reservation hold queues, verifying that inventory never drops below zero ($0$ overselling invariant).
    - **System Architecture Explorer**: Interactive SVG/HTML node and connection topology covering Checkout Client, FastAPI gateway, Redis in-memory engine, and PostgreSQL database.
    - **Distributed Rate Limiter**: Interactive Token Bucket vs. Sliding Window counter comparison under user-configurable burst traffic rates.
    - **Cache Eviction Visualizer**: Step-by-step memory slot visualizer comparing Least Recently Used (LRU) and Least Frequently Used (LFU) algorithms.
-3. **Local AI Portfolio Assistant**:
-   - Deterministic, zero-cost, privacy-preserving portfolio assistant answering visitor questions using a strictly verified offline knowledge base.
+4. **Local AI Portfolio Assistant**:
+   - Deterministic, zero-cost, privacy-preserving portfolio assistant answering visitor questions using a strictly verified offline knowledge base covering Aryaveer's systems, internship, leadership, and credentials.
    - Sourced entirely from verified facts without hallucinations, external API latency, or third-party tracking.
    - Built on a pluggable `PortfolioAssistant` service contract using Dependency Inversion.
-4. **Freelance Services & Client Inquiry Workflow**:
+5. **Services & Client Inquiry Workflow**:
    - Structured client engagement models for backend systems architecture, applied AI/ML pipelines, and codebase modernization.
    - 100% Upwork Escrow Protection notice ensuring mutual security.
    - Interactive inquiry form with client validation and pre-filled mailto dispatch.
@@ -48,6 +56,7 @@ src/
 ├── data/                 # Centralized typed configuration & portfolio facts
 │   ├── assistantKnowledge.ts # Verified knowledge base topics & suggested inquiries
 │   ├── caseStudies.ts        # Comprehensive project case study design docs
+│   ├── experience.ts         # Infosys ML internship, DTU leadership & certifications
 │   ├── flashSaleArchitecture.ts # Node & connection topology specifications
 │   ├── profile.ts            # Personal specs, contact channels & DTU telemetry
 │   ├── projects.ts           # Featured projects baseline
@@ -110,7 +119,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 The codebase includes automated unit test suites running on Node's native test runner (`node --test --experimental-strip-types`), strict TypeScript compilation, and ESLint static analysis:
 
 ```bash
-# 1. Run all unit tests (24+ tests across 5 suites)
+# 1. Run all unit tests (26 tests across 5 suites)
 npm test
 
 # 2. Strict TypeScript type check

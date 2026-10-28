@@ -56,7 +56,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     ],
     answer:
       "Aryaveer's primary backend project is the **High-Concurrency Flash Sale Engine**.\n\n" +
-      "It is engineered to prevent database write bottlenecks and eliminate inventory overselling during massive concurrent traffic spikes. It uses atomic Redis Lua scripts for sub-millisecond stock decrements, a 15-minute TTL reservation hold queue, and asynchronous message queue decoupling to PostgreSQL.\n\n" +
+      "It is engineered in Python and FastAPI to absorb surge traffic and eliminate inventory overselling under 5,000+ concurrent requests. It uses PostgreSQL ACID transactions with pessimistic row-level locking (`SELECT ... FOR UPDATE`), Redis caching for fast inventory checks and early rejection of sold-out requests, and idempotency keys to process 1,000+ req/sec with less than 150ms latency.\n\n" +
       "You can explore the full case study under [Featured Projects](#projects) or test the deterministic simulation live in the [Engineering Lab](#lab).",
   },
 
@@ -68,6 +68,8 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
       "flash sale",
       "redis",
       "lua",
+      "pessimistic",
+      "acid",
       "overselling",
       "inventory",
       "reservation",
@@ -83,9 +85,9 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     ],
     answer:
       "The **High-Concurrency Flash Sale Engine** solves race conditions when thousands of concurrent requests target finite stock:\n\n" +
-      "1. **Atomic Decrements:** Uses Redis Lua scripts to execute check-and-decrement atomically in a single round-trip, guaranteeing remaining inventory never drops below zero ($0$ overselling invariant).\n" +
-      "2. **Two-Phase Reservation:** Successful reservations are held with a 15-minute TTL key. If payment is uncompleted, stock auto-returns to the pool.\n" +
-      "3. **Asynchronous Persistence:** Orders are queued asynchronously to PostgreSQL to decouple read throughput from heavy relational writes.\n\n" +
+      "1. **Pessimistic Row-Level Locking:** Uses PostgreSQL ACID transactions with `SELECT ... FOR UPDATE` to strictly prevent inventory overselling under 5,000+ concurrent requests, guaranteeing balance never drops below zero.\n" +
+      "2. **Fast In-Memory Rejection:** Uses Redis for fast inventory balance checks and instant early rejection of sold-out requests, shielding the database from query storms.\n" +
+      "3. **API Reliability & Idempotency:** The checkout API processes 1,000+ req/sec with <150ms latency, utilizing unique idempotency keys to eliminate duplicate orders on client retries.\n\n" +
       "You can test this behavior interactively in the [Engineering Lab Simulator](#lab) or inspect the component topology in the [Architecture Explorer](#lab).",
   },
 
@@ -99,24 +101,29 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
       "deep learning",
       "pytorch",
       "vision",
-      "document",
+      "floatchat",
+      "insurance",
+      "compliance",
       "rag",
       "pcb",
-      "assistant",
+      "llama",
     ],
     patterns: [
       /ai project/i,
       /show.*ai/i,
       /machine learning/i,
-      /document assistant/i,
+      /floatchat/i,
+      /insurance/i,
+      /compliance/i,
       /pcb/i,
       /computer vision/i,
     ],
     answer:
-      "Aryaveer has engineered two featured AI and machine learning systems:\n\n" +
-      "1. **AI-Powered Document Assistant:** A grounded semantic retrieval (RAG) pipeline designed for technical documentation. Uses dense vector embeddings, cosine similarity ranking, and strict citation injection to eliminate hallucination.\n" +
-      "2. **PCB Defect Detection System:** A computer vision inspection pipeline using convolutional neural networks in PyTorch to detect and localize manufacturing flaws (solder bridges, missing pins, track fractures) on circuit boards.\n\n" +
-      "Both systems are detailed in the [Case Studies section](#projects).",
+      "Aryaveer has engineered three flagship AI and machine learning systems:\n\n" +
+      "1. **FloatChat (Agentic RAG for Oceanographic Data):** Multi-dimensional NetCDF climate data querying using fine-tuned Llama-3 for NL-to-SQL translation (92% accuracy) and a PostgreSQL + FAISS hybrid retrieval system achieving sub-2s latency.\n" +
+      "2. **Automated Insurance Policy Compliance Engine:** Scalable RAG pipeline using LangChain, GPT-4, and FAISS with 95% clause retrieval precision, featuring Chain-of-Thought reasoning with explainability guardrails that reduce manual verification effort by 70%.\n" +
+      "3. **Automated PCB Quality Control Dashboard:** Decoupled microservice architecture (Node.js + FastAPI) running PyTorch convolutional defect classification, operating 25x faster than manual visual inspection with sub-second inference.\n\n" +
+      "All systems are detailed in the [Case Studies section](#projects).",
   },
 
   // 4. Technologies & Tech Stack
@@ -178,10 +185,11 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
       /email/i,
     ],
     answer:
-      "You can discuss a project or contract inquiry with Aryaveer through the following verified channels:\n\n" +
-      "- **Direct Email:** [contact@aryaveer.dev](mailto:contact@aryaveer.dev) — monitored regularly for engineering inquiries.\n" +
-      "- **Upwork:** Available for freelance backend development and machine learning contracts.\n" +
-      "- **LinkedIn:** Connect for professional and recruitment inquiries.\n" +
+      "You can discuss a project or engineering inquiry with Aryaveer through the following verified channels:\n\n" +
+      "- **Direct Email:** [aryaveeragarwal10@gmail.com](mailto:aryaveeragarwal10@gmail.com) — monitored regularly for engineering inquiries.\n" +
+      "- **LinkedIn:** Connect for professional and recruitment inquiries at [linkedin.com/in/aryaveer-agarwal-dtu](https://linkedin.com/in/aryaveer-agarwal-dtu/).\n" +
+      "- **GitHub:** Explore public repositories at [github.com/Aryaveer-ag](https://github.com/Aryaveer-ag).\n" +
+      "- **Upwork:** Available for freelance software engineering contracts.\n" +
       "- **Quick Inquiry Form:** Send a message directly via the [Contact Section](#contact).\n\n" +
       "Engineering resumes in PDF format are also dispatched directly upon email inquiry.",
   },
@@ -204,15 +212,17 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     patterns: [
       /where.*study/i,
       /education/i,
-      /dtu/i,
-      /university/i,
+      /academics/i,
       /degree/i,
       /when.*graduate/i,
-      /college/i,
+      /dtu.*degree/i,
+      /study.*dtu/i,
+      /college.*degree/i,
+      /btech/i,
     ],
     answer:
-      "Aryaveer Agarwal is a **final-year undergraduate student at Delhi Technological University (DTU)**, completing his Bachelor of Technology (B.Tech) degree in the **Class of 2026**.\n\n" +
-      "His academic concentration covers foundational computer science: Data Structures & Algorithms, Database Management Systems, Operating Systems & Concurrency, Computer Networks, and Machine Learning.\n\n" +
+      "Aryaveer Agarwal is an **undergraduate engineering student at Delhi Technological University (DTU)**, pursuing his Bachelor of Technology (B.Tech) degree in **Electronics and Communications Engineering (2023–2027)**.\n\n" +
+      "His coursework and practical focus cover foundational computer science: Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems & Concurrency, Computer Networks, and Machine Learning.\n\n" +
       "Review the full academic background in the [About Section](#about).",
   },
 
@@ -272,9 +282,99 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
       "3. **Systems Profiling & Code Modernization:** Latency bottleneck profiling, race condition elimination, and strict TypeScript/Python refactoring.\n\n" +
       "Explore all offerings and select an engagement model in the [Services & Contact Section](#contact).",
   },
+
+  // 9. Industry Experience & Internships
+  {
+    id: "internship-experience",
+    keywords: [
+      "experience",
+      "internship",
+      "intern",
+      "infosys",
+      "springboard",
+      "nutricare",
+      "mimic",
+      "clinical",
+      "work experience",
+    ],
+    patterns: [
+      /internship/i,
+      /infosys/i,
+      /where.*worked/i,
+      /work.*experience/i,
+      /nutricare/i,
+      /industry experience/i,
+    ],
+    answer:
+      "Aryaveer completed a Machine Learning Internship at **Infosys Springboard** (Nov 2025 – Jan 2026), engineering **AI-NutriCare**:\n\n" +
+      "- **NLP Clinical Parsing:** Converted unstructured physician notes, prescriptions, and diagnostic lab reports into structured patient health profiles.\n" +
+      "- **MIMIC-IV Big Data:** Processed 500,000+ time-series patient records from the MIMIC-IV clinical database (50+ GB) to extract health-nutrition correlations.\n" +
+      "- **Personalization Engine:** Built a recommendation engine dynamically adapting dietary recommendations across 20+ specific clinical conditions, validated against clinical guidelines.\n\n" +
+      "Details are featured in the [Experience section](#about).",
+  },
+
+  // 10. Leadership & Extracurriculars
+  {
+    id: "leadership-roles",
+    keywords: [
+      "leadership",
+      "cultural council",
+      "kalakriti",
+      "engifest",
+      "sponsorship",
+      "oneplus",
+      "intel",
+      "extracurricular",
+    ],
+    patterns: [
+      /leadership/i,
+      /cultural council/i,
+      /engifest/i,
+      /kalakriti/i,
+      /sponsorship/i,
+      /responsibilit/i,
+    ],
+    answer:
+      "Aryaveer holds key leadership roles at Delhi Technological University:\n\n" +
+      "1. **Public Relations Head, Cultural Council DTU (Jan 2024 – Present):** Directed operations for 10+ large-scale events including Engifest (150,000+ attendees), secured 50+ corporate sponsorships (OnePlus, Intel), and doubled digital channel reach.\n" +
+      "2. **Corporate Relations Lead, Kalakriti Art Society DTU (Jan 2024 – Present):** Managed Delhi-NCR's largest collegiate art festival spanning 70+ colleges with a budget exceeding ₹15 Lakhs.\n\n" +
+      "Explore the [Leadership section](#about) for full details.",
+  },
+
+  // 11. Certifications & Credentials
+  {
+    id: "certifications-credentials",
+    keywords: [
+      "certifications",
+      "credentials",
+      "badges",
+      "google cloud",
+      "azure",
+      "aws",
+      "freecodecamp",
+      "certified",
+    ],
+    patterns: [
+      /certification/i,
+      /credentials/i,
+      /google cloud.*genai/i,
+      /azure.*skills/i,
+      /aws.*badge/i,
+    ],
+    answer:
+      "Aryaveer holds 7 verified technical credentials from leading cloud and developer institutions:\n\n" +
+      "- **Google Cloud:** Generative AI Fundamentals\n" +
+      "- **Microsoft Applied Skills:** Generative AI Solutions on Azure\n" +
+      "- **AWS Knowledge Badge:** Cloud Essentials & AI Foundations\n" +
+      "- **freeCodeCamp:** Relational Database (SQL)\n" +
+      "- **freeCodeCamp:** Machine Learning with Python\n" +
+      "- **freeCodeCamp:** Front End Development Libraries (React JS)\n" +
+      "- **freeCodeCamp:** Data Analysis with Python\n\n" +
+      "All credentials are listed in the [Credentials section](#about).",
+  },
 ];
 
 export const FALLBACK_UNKNOWN_RESPONSE =
   "I don't have verified information regarding that specific query. As a portfolio assistant, I only provide factual information about Aryaveer's software engineering background at DTU, his backend and AI projects, technical skills, or how to contact him.\n\n" +
-  "You can ask one of the suggested questions below, explore his [Featured Projects](#projects), or get in touch directly via [contact@aryaveer.dev](mailto:contact@aryaveer.dev).";
+  "You can ask one of the suggested questions below, explore his [Featured Projects](#projects), or get in touch directly via [aryaveeragarwal10@gmail.com](mailto:aryaveeragarwal10@gmail.com).";
 

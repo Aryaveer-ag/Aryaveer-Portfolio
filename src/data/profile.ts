@@ -43,6 +43,7 @@ export interface StudioProfile {
     linkedin: string;
     upwork: string;
     email: string;
+    mobile?: string;
   };
 }
 
@@ -50,15 +51,15 @@ export const studioProfile: StudioProfile = {
   name: "Aryaveer Agarwal",
   headline: "Software Engineer Building Systems That Scale.",
   supportingText:
-    "I build backend systems and intelligent applications with a focus on reliability, performance, and practical problem-solving.",
+    "I build high-concurrency backend architectures, resilient distributed services, and agentic AI pipelines with a focus on reliability, performance, and practical problem-solving.",
   institution: "Delhi Technological University (DTU)",
-  degree: "B.Tech Final Year",
-  graduatingYear: "2026",
+  degree: "B.Tech, Electronics and Communications Engineering",
+  graduatingYear: "2027",
   location: "Delhi, India",
   availability: {
     status: "available",
-    label: "Available for Freelance",
-    sublabel: "Open to contract engineering & Upwork projects",
+    label: "Available for Opportunities",
+    sublabel: "Open to software engineering roles & contract projects",
   },
   ctas: {
     primary: {
@@ -70,7 +71,7 @@ export const studioProfile: StudioProfile = {
       href: "#lab",
     },
     talk: {
-      label: "Start a Project",
+      label: "Get in Touch",
       href: "#contact",
     },
   },
@@ -130,15 +131,16 @@ export const studioProfile: StudioProfile = {
   ],
   specs: [
     { label: "Institution", value: "Delhi Technological University" },
-    { label: "Degree Level", value: "Final-Year B.Tech (Class of 2026)" },
-    { label: "Primary Languages", value: "TypeScript, Python, C++, SQL" },
-    { label: "Core Domains", value: "Backend Systems, ML, Algorithmic DSA" },
-    { label: "Freelance", value: "Available for Contract & Upwork" },
+    { label: "Degree Level", value: "B.Tech, ECE (Class of 2027)" },
+    { label: "Primary Languages", value: "Python, C++, SQL, TypeScript, JavaScript" },
+    { label: "Core Domains", value: "Backend Systems, Agentic RAG, ML, Concurrency" },
+    { label: "Availability", value: "Open to Engineering Roles & Contracts" },
   ],
   links: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    github: "https://github.com/Aryaveer-ag",
+    linkedin: "https://linkedin.com/in/aryaveer-agarwal-dtu/",
     upwork: "https://upwork.com",
-    email: "contact@aryaveer.dev",
+    email: "aryaveeragarwal10@gmail.com",
+    mobile: "+91-7001446134",
   },
 };

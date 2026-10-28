@@ -36,9 +36,10 @@ test("Suggested Questions Verification", async () => {
   // 2. Flash-sale deep dive
   const flashSaleAns = await assistant.ask("Explain the flash-sale engine.");
   assert.ok(
-    flashSaleAns.includes("Atomic Decrements") ||
+    flashSaleAns.includes("Pessimistic") ||
+      flashSaleAns.includes("pessimistic") ||
       flashSaleAns.includes("atomic"),
-    "Should explain atomic decrements"
+    "Should explain pessimistic locking or atomic decrements"
   );
   assert.ok(
     flashSaleAns.includes("overselling") || flashSaleAns.includes("oversell"),
@@ -49,12 +50,16 @@ test("Suggested Questions Verification", async () => {
   // 3. AI projects query
   const aiAns = await assistant.ask("Show me his AI projects.");
   assert.ok(
-    aiAns.includes("AI-Powered Document Assistant"),
-    "Should mention Doc Assistant"
+    aiAns.includes("FloatChat"),
+    "Should mention FloatChat"
   );
   assert.ok(
-    aiAns.includes("PCB Defect Detection System"),
-    "Should mention PCB Defect Detection"
+    aiAns.includes("Automated Insurance Policy Compliance Engine"),
+    "Should mention Insurance Compliance Engine"
+  );
+  assert.ok(
+    aiAns.includes("Automated PCB Quality Control Dashboard"),
+    "Should mention PCB Quality Control Dashboard"
   );
   assert.ok(aiAns.includes("PyTorch"), "Should mention PyTorch");
 
@@ -73,7 +78,7 @@ test("Suggested Questions Verification", async () => {
   // 5. Contact & discussion query
   const contactAns = await assistant.ask("How can I discuss a project with him?");
   assert.ok(
-    contactAns.includes("contact@aryaveer.dev"),
+    contactAns.includes("aryaveeragarwal10@gmail.com"),
     "Should give direct contact email"
   );
   assert.ok(
@@ -166,5 +171,21 @@ test("Service Interchangeability (Pluggable Architecture)", async () => {
     res,
     "[https://api.aryaveer.dev/v1/assistant] Grounded answer for: What projects are available?"
   );
+});
+
+test("Personalized Knowledge Queries: Internship & Leadership", async () => {
+  const assistant = new MockPortfolioAssistant({ simulatedDelayMs: 0 });
+
+  // 1. Internship query
+  const internAns = await assistant.ask("Tell me about Aryaveer's internship experience");
+  assert.ok(internAns.includes("Infosys Springboard"), "Should mention Infosys Springboard");
+  assert.ok(internAns.includes("MIMIC-IV"), "Should mention MIMIC-IV clinical dataset");
+  assert.ok(internAns.includes("AI-NutriCare"), "Should mention AI-NutriCare");
+
+  // 2. Leadership query
+  const leadAns = await assistant.ask("What leadership roles did he hold at DTU?");
+  assert.ok(leadAns.includes("Cultural Council"), "Should mention Cultural Council DTU");
+  assert.ok(leadAns.includes("Engifest"), "Should mention Engifest");
+  assert.ok(leadAns.includes("OnePlus") || leadAns.includes("Intel"), "Should mention corporate sponsors");
 });
 

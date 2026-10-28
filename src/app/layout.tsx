@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "Aryaveer.dev — Interactive Engineering Studio",
     title: "Aryaveer Agarwal — Software Engineer Building Systems That Scale",
     description:
-      "Backend systems, in-browser concurrency simulations, and machine learning architectures by Aryaveer Agarwal (DTU Class of 2026).",
+      "Backend systems, in-browser concurrency simulations, and machine learning architectures by Aryaveer Agarwal (DTU Class of 2027).",
   },
   twitter: {
     card: "summary_large_image",

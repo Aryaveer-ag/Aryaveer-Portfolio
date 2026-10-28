@@ -12,36 +12,40 @@ export const skillCategories: SkillCategory[] = [
 export const skillsCatalog: SkillItem[] = [
   // 1. Programming
   {
-    id: "typescript",
-    name: "TypeScript",
-    category: "Programming",
-    accent: "indigo",
-    description:
-      "Strictly typed application development, full-stack interface contracts, and static compile-time safety for complex system logic.",
-    associatedProjectIds: ["flash-sale-engine"],
-    projectApplications: {
-      "flash-sale-engine":
-        "Defines domain entity models, reservation request DTOs, and asynchronous message payload types.",
-    },
-    courseworkContext:
-      "Primary language for robust web application architectures, front-end state management, and type-safe API tooling.",
-  },
-  {
     id: "python",
     name: "Python",
     category: "Programming",
     accent: "emerald",
     description:
-      "Scientific computing, asynchronous API runtimes, machine learning pipelines, and automated dataset processing.",
-    associatedProjectIds: ["doc-assistant", "pcb-defect-detection"],
+      "High-throughput backend development, asynchronous FastAPI services, PyTorch deep learning, and LangChain/Llama-3 agentic workflows.",
+    associatedProjectIds: ["floatchat-rag", "flash-sale-engine", "pcb-qc-dashboard", "insurance-compliance-engine"],
     projectApplications: {
-      "doc-assistant":
-        "Powers the semantic retrieval pipeline, vector embedding generation, and FastAPI service endpoints.",
-      "pcb-defect-detection":
-        "Powers CNN dataset preprocessing, PyTorch training pipelines, and computer vision inference loops.",
+      "floatchat-rag":
+        "Powers the automated NetCDF ETL pipeline, FAISS hybrid search, and fine-tuned Llama-3 translation runtime.",
+      "flash-sale-engine":
+        "Implements the high-concurrency FastAPI checkout API, idempotency middleware, and PostgreSQL transactional commits.",
+      "pcb-qc-dashboard":
+        "Powers the PyTorch convolutional classification worker and sub-second defect inference microservice.",
+      "insurance-compliance-engine":
+        "Powers the LangChain RAG pipeline, Chain-of-Thought evaluation logic, and Pydantic guardrail schemas.",
     },
     courseworkContext:
-      "Extensively applied across numerical methods, machine learning coursework, and backend scripting at DTU.",
+      "Core language for machine learning, data engineering, and backend microservice development at DTU.",
+  },
+  {
+    id: "typescript",
+    name: "TypeScript & JavaScript",
+    category: "Programming",
+    accent: "indigo",
+    description:
+      "Strictly typed full-stack development, decoupled Node.js API routing, React analytics interfaces, and type-safe data contracts.",
+    associatedProjectIds: ["pcb-qc-dashboard"],
+    projectApplications: {
+      "pcb-qc-dashboard":
+        "Powers the Node.js REST API gateway routing scans to the ML worker, and the interactive React analytics dashboard.",
+    },
+    courseworkContext:
+      "Applied in full-stack web applications, front-end state management, and type-safe API tooling.",
   },
   {
     id: "cpp",
@@ -60,14 +64,16 @@ export const skillsCatalog: SkillItem[] = [
     category: "Programming",
     accent: "cyan",
     description:
-      "Relational schema modeling, multi-table queries, ACID transactional isolation, and query execution plan optimization.",
-    associatedProjectIds: ["flash-sale-engine"],
+      "Relational schema modeling, multi-table queries, ACID transactional isolation, pessimistic row-level locking, and query optimization.",
+    associatedProjectIds: ["flash-sale-engine", "floatchat-rag"],
     projectApplications: {
       "flash-sale-engine":
-        "Authoring schema migration scripts, transactional inventory commits, and conflict resolution rules in PostgreSQL.",
+        "Pessimistic row-level locking (`SELECT ... FOR UPDATE`) and ACID order commits preventing overselling under 5,000+ concurrent requests.",
+      "floatchat-rag":
+        "Geospatial bounding-box queries in PostgreSQL paired with fine-tuned Llama-3 SQL generation achieving 92% validation accuracy.",
     },
     courseworkContext:
-      "Relational Database Management Systems (DBMS) lab and coursework at DTU covering normalization and ACID compliance.",
+      "Relational Database Management Systems (DBMS) lab and coursework at DTU covering normalization, transactions, and indexing.",
   },
 
   // 2. Backend and APIs
@@ -77,11 +83,17 @@ export const skillsCatalog: SkillItem[] = [
     category: "Backend and APIs",
     accent: "cyan",
     description:
-      "Modern, high-performance Python asynchronous web framework with automatic OpenAPI documentation and strict Pydantic validation.",
-    associatedProjectIds: ["doc-assistant"],
+      "High-performance Python asynchronous web framework with automatic OpenAPI documentation, dependency injection, and Pydantic validation.",
+    associatedProjectIds: ["floatchat-rag", "flash-sale-engine", "pcb-qc-dashboard", "insurance-compliance-engine"],
     projectApplications: {
-      "doc-assistant":
-        "Asynchronous query endpoint serving vector similarity searches and document chunk citations with sub-100ms response times.",
+      "floatchat-rag":
+        "Asynchronous query endpoint orchestrating dual retrieval and streaming results in sub-2s latency.",
+      "flash-sale-engine":
+        "Checkout API processing 1,000+ req/sec with less than 150ms latency using idempotency keys.",
+      "pcb-qc-dashboard":
+        "Dedicated ML microservice executing sub-second PyTorch tensor inference on uploaded PCB scans.",
+      "insurance-compliance-engine":
+        "Dockerized compliance microservice validating claims against policy clauses with structured outputs.",
     },
     courseworkContext:
       "Applied in building modular microservice endpoints and REST API prototypes for machine learning services.",
@@ -92,11 +104,11 @@ export const skillsCatalog: SkillItem[] = [
     category: "Backend and APIs",
     accent: "emerald",
     description:
-      "Event-driven asynchronous server-side runtime for high-concurrency network services and decoupled I/O.",
-    associatedProjectIds: ["flash-sale-engine"],
+      "Event-driven asynchronous server-side runtime for high-concurrency network services, secure file uploads, and decoupled I/O.",
+    associatedProjectIds: ["pcb-qc-dashboard"],
     projectApplications: {
-      "flash-sale-engine":
-        "Non-blocking event loop architecture handling concurrent purchase intake before dispatching to Redis Lua scripts.",
+      "pcb-qc-dashboard":
+        "Decoupled microservice backend streaming high-resolution client scans securely to the Python inference engine.",
     },
     courseworkContext:
       "Client-server architecture, asynchronous I/O event loops, and middleware pipeline design.",
@@ -107,13 +119,15 @@ export const skillsCatalog: SkillItem[] = [
     category: "Backend and APIs",
     accent: "indigo",
     description:
-      "Clean API contract design adhering to stateless HTTP semantics, semantic status codes, and idempotency guarantees.",
-    associatedProjectIds: ["flash-sale-engine", "doc-assistant"],
+      "Clean API contract design adhering to stateless HTTP semantics, idempotency guarantees, and structured error responses.",
+    associatedProjectIds: ["flash-sale-engine", "pcb-qc-dashboard", "floatchat-rag"],
     projectApplications: {
       "flash-sale-engine":
-        "Idempotent reservation endpoints preventing duplicate submissions on network retries.",
-      "doc-assistant":
-        "Grounded document ingestion and retrieval endpoints with structured JSON responses.",
+        "Idempotent reservation endpoints preventing duplicate submissions and ensuring safe client retries.",
+      "pcb-qc-dashboard":
+        "High-resolution scan upload pipeline connecting client frontend to decoupled ML microservice.",
+      "floatchat-rag":
+        "Structured query endpoints returning serialized geospatial telemetry and vector similarity scores.",
     },
     courseworkContext:
       "Computer Networks and Distributed Systems curriculum at DTU covering HTTP/HTTPS, sockets, and transport layers.",
@@ -124,11 +138,11 @@ export const skillsCatalog: SkillItem[] = [
     category: "Backend and APIs",
     accent: "emerald",
     description:
-      "Techniques and data structures to prevent race conditions, dirty reads, and overselling in high-contention environments.",
+      "Techniques and data structures to prevent race conditions, dirty reads, and overselling under surge traffic.",
     associatedProjectIds: ["flash-sale-engine"],
     projectApplications: {
       "flash-sale-engine":
-        "Single-threaded Redis atomic operations and distributed lock timeouts to protect critical inventory sections.",
+        "Prevented inventory overselling under 5,000+ concurrent requests using PostgreSQL row-level locks and Redis caching.",
     },
     courseworkContext:
       "Operating Systems multi-threading, semaphores, mutexes, and deadlocks studied in DTU core CS curriculum.",
@@ -141,11 +155,13 @@ export const skillsCatalog: SkillItem[] = [
     category: "Databases and systems",
     accent: "cyan",
     description:
-      "Robust relational database engine with advanced ACID transactional guarantees, foreign keys, and indexing.",
-    associatedProjectIds: ["flash-sale-engine"],
+      "Robust relational database engine with advanced ACID transactional guarantees, row-level locks, and spatial indexing.",
+    associatedProjectIds: ["flash-sale-engine", "floatchat-rag"],
     projectApplications: {
       "flash-sale-engine":
-        "Persistent ledger of completed purchases, transactional order processing, and durable state storage.",
+        "Pessimistic row-level locking (`SELECT ... FOR UPDATE`) guaranteeing absolute zero overselling.",
+      "floatchat-rag":
+        "Geospatial coordinate storage and indexed relational ocean metadata querying.",
     },
     courseworkContext:
       "Relational database theory, B-tree indexes, execution plans, and transaction isolation levels.",
@@ -156,14 +172,29 @@ export const skillsCatalog: SkillItem[] = [
     category: "Databases and systems",
     accent: "emerald",
     description:
-      "In-memory key-value data store used for sub-millisecond atomic caching, rate limiting, and ephemeral state holding.",
+      "In-memory key-value data store used for sub-millisecond inventory caching, rate limiting, and early rejection of sold-out traffic.",
     associatedProjectIds: ["flash-sale-engine"],
     projectApplications: {
       "flash-sale-engine":
-        "Primary real-time inventory counter executing atomic Lua decrement scripts and holding temporary purchase claims.",
+        "Used Redis for fast inventory balance checks and instant early rejection of sold-out requests, shielding database traffic.",
     },
     courseworkContext:
       "High-performance cache hierarchies, eviction policies (LRU/LFU), and memory-bounded storage strategies.",
+  },
+  {
+    id: "mongodb",
+    name: "MongoDB",
+    category: "Databases and systems",
+    accent: "emerald",
+    description:
+      "Flexible document-oriented database schema optimized for hierarchical telemetry, defect coordinates, and dynamic manufacturing logs.",
+    associatedProjectIds: ["pcb-qc-dashboard"],
+    projectApplications: {
+      "pcb-qc-dashboard":
+        "Stores high-resolution inspection metadata, defect coordinate bounding boxes, and aggregate production line analytics.",
+    },
+    courseworkContext:
+      "NoSQL database architectures, document validation schemas, and high-velocity append-only logging.",
   },
   {
     id: "distributed-fundamentals",
@@ -171,11 +202,13 @@ export const skillsCatalog: SkillItem[] = [
     category: "Databases and systems",
     accent: "amber",
     description:
-      "Foundations of scalable architectures including the CAP theorem, horizontal partitioning, cache-aside patterns, and decoupling.",
-    associatedProjectIds: ["flash-sale-engine"],
+      "Foundations of scalable architectures including decoupling, microservices, cache-aside patterns, and fault isolation.",
+    associatedProjectIds: ["flash-sale-engine", "pcb-qc-dashboard"],
     projectApplications: {
       "flash-sale-engine":
-        "Decoupling synchronous request intake from asynchronous database persistence via queueing patterns.",
+        "Multi-tier isolation decoupling client API admission from persistent relational transactions.",
+      "pcb-qc-dashboard":
+        "Decoupled microservice architecture separating client I/O (Node.js) from ML inference (FastAPI/PyTorch).",
     },
     courseworkContext:
       "Distributed systems coursework and independent engineering explorations into fault tolerance and partitioning.",
@@ -199,60 +232,62 @@ export const skillsCatalog: SkillItem[] = [
     category: "AI and machine learning",
     accent: "cyan",
     description:
-      "Deep learning framework for building, training, and deploying neural network architectures with dynamic computational graphs.",
-    associatedProjectIds: ["doc-assistant", "pcb-defect-detection"],
+      "Deep learning framework for building, training, and deploying neural network architectures with hardware-accelerated tensor execution.",
+    associatedProjectIds: ["pcb-qc-dashboard"],
     projectApplications: {
-      "doc-assistant":
-        "Loading transformer embeddings and performing vectorized similarity matrix computations.",
-      "pcb-defect-detection":
-        "Configuring convolutional neural networks, transfer learning backbones, and custom loss functions.",
+      "pcb-qc-dashboard":
+        "Convolutional neural network inference pipeline identifying solder bridges, broken traces, and missing components.",
     },
     courseworkContext:
       "Machine Learning and Neural Networks coursework at DTU covering backpropagation and gradient descent optimization.",
   },
   {
     id: "vector-retrieval",
-    name: "Vector Search & Retrieval (RAG)",
+    name: "Vector Search & Agentic RAG",
     category: "AI and machine learning",
     accent: "emerald",
     description:
-      "Semantic vector space indexing, cosine distance calculation, and grounded contextual prompt assembly without hallucination.",
-    associatedProjectIds: ["doc-assistant"],
+      "Semantic vector indexing, FAISS retrieval, dense embeddings, LangChain agentic pipelines, and grounded generation with guardrails.",
+    associatedProjectIds: ["floatchat-rag", "insurance-compliance-engine"],
     projectApplications: {
-      "doc-assistant":
-        "Chunking documentation, generating dense vector embeddings, and retrieving top-K passages with citations.",
+      "floatchat-rag":
+        "Hybrid retrieval system (PostgreSQL + FAISS) achieving sub-2s query latency across oceanographic datasets.",
+      "insurance-compliance-engine":
+        "RAG pipeline (LangChain + GPT-4 + FAISS) retrieving policy clauses with 95% precision and Chain-of-Thought reasoning.",
     },
     courseworkContext:
       "Natural Language Processing and Information Retrieval independent research and implementation.",
   },
   {
     id: "computer-vision",
-    name: "Computer Vision & Object Detection",
+    name: "Computer Vision & Defect Detection",
     category: "AI and machine learning",
     accent: "indigo",
     description:
-      "Image preprocessing, bounding box regression, feature extraction, and surface defect classification.",
-    associatedProjectIds: ["pcb-defect-detection"],
+      "Image preprocessing, bounding box localization, Non-Maximum Suppression (NMS), and automated surface flaw screening.",
+    associatedProjectIds: ["pcb-qc-dashboard"],
     projectApplications: {
-      "pcb-defect-detection":
-        "Automated identification of solder bridges, missing pins, and scratch defects on circuit boards.",
+      "pcb-qc-dashboard":
+        "Automated defect screening operating 25x faster than manual visual inspection with sub-second ML inference.",
     },
     courseworkContext:
       "Digital Image Processing and Computer Vision academic electives at DTU.",
   },
   {
     id: "scikit-learn",
-    name: "Scikit-Learn & Evaluation Metrics",
+    name: "Evaluation Metrics & Validation",
     category: "AI and machine learning",
     accent: "amber",
     description:
-      "Statistical machine learning, regression, clustering, dimensionality reduction, and rigorous model evaluation.",
-    associatedProjectIds: ["pcb-defect-detection", "doc-assistant"],
+      "Accuracy benchmarking, precision/recall evaluation, confusion matrices, and logged metrics for continuous model validation.",
+    associatedProjectIds: ["floatchat-rag", "pcb-qc-dashboard", "insurance-compliance-engine"],
     projectApplications: {
-      "pcb-defect-detection":
-        "Computing ROC-AUC curves, confusion matrices, and precision-recall trade-offs across validation sets.",
-      "doc-assistant":
-        "Fast cosine similarity distance computations across normalized embedding vectors.",
+      "floatchat-rag":
+        "Logged accuracy metrics evaluating fine-tuned Llama-3 NL-to-SQL translation, achieving 92% validation accuracy.",
+      "pcb-qc-dashboard":
+        "Precision, recall, and false-positive benchmarking against manual assembly line baseline inspections.",
+      "insurance-compliance-engine":
+        "95% clause retrieval precision benchmarking and explainability guardrail validation.",
     },
     courseworkContext:
       "Applied Data Science and Machine Learning laboratory at DTU.",
@@ -260,54 +295,60 @@ export const skillsCatalog: SkillItem[] = [
 
   // 5. Development tools
   {
+    id: "docker",
+    name: "Docker & Containerization",
+    category: "Development tools",
+    accent: "cyan",
+    description:
+      "Containerized microservices ensuring reproducible execution across local environments and production deployments.",
+    associatedProjectIds: ["floatchat-rag", "flash-sale-engine", "insurance-compliance-engine"],
+    projectApplications: {
+      "floatchat-rag":
+        "Production-deployed Docker container running FastAPI backend and Streamlit interface.",
+      "flash-sale-engine":
+        "Dockerized FastAPI microservice with containerized Redis and PostgreSQL instances.",
+      "insurance-compliance-engine":
+        "Containerized FastAPI + Streamlit compliance microservice with isolated environment dependencies.",
+    },
+    courseworkContext:
+      "Isolated testing environments and reproducible dependency management.",
+  },
+  {
     id: "git",
     name: "Git & GitHub",
     category: "Development tools",
     accent: "amber",
     description:
       "Distributed version control, branch management, pull request reviews, and semantic commit hygiene.",
-    associatedProjectIds: ["flash-sale-engine", "doc-assistant", "pcb-defect-detection"],
+    associatedProjectIds: ["floatchat-rag", "flash-sale-engine", "pcb-qc-dashboard", "insurance-compliance-engine"],
     projectApplications: {
+      "floatchat-rag":
+        "Public repository architecture and versioned dataset extraction scripts.",
       "flash-sale-engine":
-        "Feature branch workflows, pull request reviews, and issue tracking.",
-      "doc-assistant":
-        "Versioned pipeline configuration and dataset tracking.",
-      "pcb-defect-detection":
-        "Model checkpoint and experiment reproduction tracking.",
+        "Branching strategy, automated integration testing, and issue management.",
+      "pcb-qc-dashboard":
+        "Monorepo management decoupling Node.js gateway from Python ML microservice.",
+      "insurance-compliance-engine":
+        "Versioned prompt templates and LangChain component configuration.",
     },
     courseworkContext:
       "Standard collaboration and project submission toolchain across all DTU lab coursework.",
   },
   {
-    id: "docker",
-    name: "Docker & Containerization",
-    category: "Development tools",
-    accent: "cyan",
-    description:
-      "Containerized environments ensuring reproducible execution across local development and production deployments.",
-    associatedProjectIds: ["flash-sale-engine"],
-    projectApplications: {
-      "flash-sale-engine":
-        "Multi-container orchestration of the Node.js application, Redis cache, and PostgreSQL database.",
-    },
-    courseworkContext:
-      "Isolated testing environments and reproducible dependency management.",
-  },
-  {
     id: "linux-tooling",
-    name: "Linux & POSIX Shell",
+    name: "Linux & Shell Scripting",
     category: "Development tools",
     accent: "indigo",
     description:
-      "Command-line productivity, Bash scripting, system monitoring, process inspection, and environment configuration.",
-    associatedProjectIds: ["flash-sale-engine", "doc-assistant", "pcb-defect-detection"],
+      "Command-line productivity, Bash automation, container logs, and server process inspection.",
+    associatedProjectIds: ["floatchat-rag", "flash-sale-engine", "pcb-qc-dashboard"],
     projectApplications: {
+      "floatchat-rag":
+        "Automated NetCDF downloading and preprocessing shell pipelines.",
       "flash-sale-engine":
-        "System resource monitoring, Redis CLI scripting, and container log analysis.",
-      "doc-assistant":
-        "Batch script automation for document corpus extraction and parsing.",
-      "pcb-defect-detection":
-        "Automated dataset downloading, unzipping, and image conversion scripts.",
+        "System performance monitoring, Redis CLI commands, and database container logs.",
+      "pcb-qc-dashboard":
+        "Microservice startup scripts and optical scan batch preprocessing.",
     },
     courseworkContext:
       "Linux environment proficiency developed through DTU Systems Programming & OS labs.",
@@ -319,12 +360,14 @@ export const skillsCatalog: SkillItem[] = [
     accent: "emerald",
     description:
       "Automated linting, static type verification, test suite execution, and reproducible builds.",
-    associatedProjectIds: ["flash-sale-engine", "pcb-defect-detection"],
+    associatedProjectIds: ["flash-sale-engine", "pcb-qc-dashboard", "floatchat-rag"],
     projectApplications: {
       "flash-sale-engine":
-        "Automated unit tests validating inventory non-overselling invariants on commit.",
-      "pcb-defect-detection":
-        "Automated evaluation scripts benchmarking validation mAP and inference timing.",
+        "Automated unit tests validating inventory non-overselling invariants and idempotency.",
+      "pcb-qc-dashboard":
+        "Automated evaluation scripts benchmarking validation accuracy and sub-second inference latency.",
+      "floatchat-rag":
+        "Logged evaluation suite tracking SQL syntax validity and semantic retrieval accuracy.",
     },
     courseworkContext:
       "Software Engineering methodology and test-driven validation practices.",

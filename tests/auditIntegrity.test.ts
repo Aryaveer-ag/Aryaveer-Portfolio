@@ -6,6 +6,12 @@ import { skillsCatalog } from "../src/data/skillsExplorer.ts";
 import { studioProfile } from "../src/data/profile.ts";
 import { SUGGESTED_QUESTIONS, KNOWLEDGE_TOPICS } from "../src/data/assistantKnowledge.ts";
 import { freelanceServices, engagementPolicies } from "../src/data/services.ts";
+import {
+  workExperienceData,
+  leadershipRolesData,
+  certificationsData,
+  priorEducationData,
+} from "../src/data/experience.ts";
 
 test("Cross-Referenced Project Identifiers Integrity", () => {
   const caseStudyIds = new Set(caseStudiesData.map((p) => p.id));
@@ -83,15 +89,15 @@ test("Contact Form Validation Logic", () => {
 });
 
 test("Truthfulness & Academic Verification Data", () => {
-  // Confirm DTU graduation year is strictly 2026 (Final Year)
-  assert.strictEqual(studioProfile.graduatingYear, "2026");
+  // Confirm DTU graduation year is 2027 (2023–2027)
+  assert.strictEqual(studioProfile.graduatingYear, "2027");
   assert.ok(studioProfile.institution.includes("Delhi Technological University"));
-  assert.ok(studioProfile.degree.includes("B.Tech Final Year"));
+  assert.ok(studioProfile.degree.includes("Electronics and Communication"));
 
-  // Confirm email and external profiles are defined
-  assert.ok(studioProfile.links.email.includes("@"));
-  assert.ok(studioProfile.links.github.startsWith("http"));
-  assert.ok(studioProfile.links.linkedin.startsWith("http"));
+  // Confirm email and external profiles are verified
+  assert.strictEqual(studioProfile.links.email, "aryaveeragarwal10@gmail.com");
+  assert.ok(studioProfile.links.github.includes("Aryaveer-ag"));
+  assert.ok(studioProfile.links.linkedin.includes("aryaveer-agarwal-dtu"));
   assert.ok(studioProfile.links.upwork.startsWith("http"));
 });
 
@@ -121,5 +127,40 @@ test("Freelance Services & Engagement Models Integrity", () => {
   for (const p of engagementPolicies) {
     assert.ok(p.title.length > 0, "Policy must have a title");
     assert.ok(p.description.length > 20, "Policy must have a detailed description");
+  }
+});
+
+test("Experience, Leadership & Certifications Integrity", () => {
+  // 1. Work Experience
+  assert.ok(workExperienceData.length >= 1, "Must have at least 1 verified work experience");
+  const infosys = workExperienceData.find((w) => w.company.includes("Infosys"));
+  assert.ok(infosys, "Infosys Springboard experience must exist");
+  assert.ok(infosys.bullets.some((b) => b.includes("MIMIC-IV")), "Must reference MIMIC-IV database");
+  assert.ok(infosys.bullets.some((b) => b.includes("500,000+")), "Must reference 500k+ patient records");
+  assert.ok(infosys.technologies.includes("Python"), "Must list Python");
+
+  // 2. Leadership Roles
+  assert.strictEqual(leadershipRolesData.length, 2, "Must have 2 leadership roles");
+  const culturalCouncil = leadershipRolesData.find((l) => l.organization.includes("Cultural Council"));
+  assert.ok(culturalCouncil, "Cultural Council DTU role must exist");
+  assert.ok(culturalCouncil.bullets.some((b) => b.includes("Engifest")), "Must reference Engifest");
+  assert.ok(culturalCouncil.bullets.some((b) => b.includes("OnePlus")), "Must reference OnePlus/Intel sponsors");
+
+  // 3. Certifications
+  assert.strictEqual(certificationsData.length, 7, "Must have exactly 7 verified certifications");
+  const certIssuers = new Set(certificationsData.map((c) => c.issuer));
+  assert.ok(certIssuers.has("Google Cloud"), "Must have Google Cloud certification");
+  assert.ok(certIssuers.has("Microsoft"), "Must have Microsoft certification");
+  assert.ok(certIssuers.has("Amazon Web Services"), "Must have AWS certification");
+  assert.ok(certIssuers.has("freeCodeCamp"), "Must have freeCodeCamp certifications");
+
+  // 4. Prior Education (NO CGPA check)
+  assert.strictEqual(priorEducationData.length, 3, "Must list 3 educational milestones");
+  for (const edu of priorEducationData) {
+    assert.ok(edu.institution.length > 0, "Must have institution name");
+    assert.ok(edu.year.length > 0, "Must have graduation/completion year");
+    // Ensure no accidental CGPA property is defined
+    assert.strictEqual((edu as Record<string, unknown>).cgpa, undefined);
+    assert.strictEqual((edu as Record<string, unknown>).percentage, undefined);
   }
 });

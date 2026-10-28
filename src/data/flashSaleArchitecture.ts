@@ -4,7 +4,7 @@ export const flashSaleArchitectureData: SystemArchitectureSpec = {
   id: "flash-sale-architecture",
   title: "High-Concurrency Flash Sale Engine — System Architecture",
   subtitle:
-    "Component topology, inter-service protocols, concurrency boundaries, and failure mitigations.",
+    "Handling 5,000+ concurrent requests with PostgreSQL ACID row-level locking, Redis early rejection caching, and idempotency protection.",
   defaultSelectedId: "redis-guard",
   defaultSelectionType: "node",
   nodes: [
@@ -16,31 +16,31 @@ export const flashSaleArchitectureData: SystemArchitectureSpec = {
       category: "client",
       accent: "indigo",
       responsibility:
-        "Initiates purchase requests on behalf of users, captures client intent, and renders deterministic checkout outcomes (Order Confirmed vs. Sold Out).",
+        "Initiates purchase requests on behalf of users, captures client intent, supplies idempotency headers, and renders deterministic checkout outcomes (Order Confirmed vs. Sold Out).",
       whyUsed:
-        "Acts as the entry boundary for external incoming traffic, providing an interface for users to participate in limited-quantity sales.",
+        "Acts as the entry boundary for external incoming traffic, providing an interface for users to participate in limited-quantity sales without retry duplication.",
       interactions: [
-        "Sends HTTPS POST /api/v1/checkout to the FastAPI application with idempotency keys.",
-        "Awaits fast HTTP response (200 OK with reservation token, or 429 Sold Out).",
-        "Renders checkout confirmation with a 10-minute payment countdown window.",
+        "Sends HTTPS POST /api/checkout/reserve with unique idempotency keys.",
+        "Awaits fast HTTP response (<150ms roundtrip latency).",
+        "Renders checkout confirmation with audited order receipt.",
       ],
       failureScenarios: [
         {
           scenario: "Network timeout before receiving confirmation",
           mitigation:
-            "Client sends retry request with identical idempotency token; backend recognizes token and returns cached reservation without re-decrementing stock.",
+            "Client sends retry request with identical idempotency token; backend recognizes token in Redis/PostgreSQL and returns cached reservation without double decrement.",
         },
         {
-          scenario: "Client disconnects after reserving stock",
+          scenario: "Client drops connection mid-flight",
           mitigation:
-            "Reservation TTL expires in Redis after 10 minutes, automatically releasing stock back to the public pool.",
+            "PostgreSQL transaction rolls back automatically on aborted connections; Redis inventory counter reflects true committed balance.",
         },
       ],
       designTradeoffs: [
         {
-          decision: "Short polling vs. Persistent WebSockets",
+          decision: "Short synchronous polling vs. Persistent WebSockets",
           rationale:
-            "HTTP REST with fast synchronous responses keeps connection lifetimes sub-50ms, avoiding open socket memory overhead across thousands of concurrent clients.",
+            "HTTP REST with sub-150ms responses keeps connection lifetimes minimal, avoiding open socket memory overhead across 5,000+ concurrent clients.",
         },
       ],
     },
@@ -52,68 +52,68 @@ export const flashSaleArchitectureData: SystemArchitectureSpec = {
       category: "gateway",
       accent: "cyan",
       responsibility:
-        "Validates incoming request schemas, performs authentication checks, coordinates atomic inventory claims in Redis, and delegates persistence to background workers.",
+        "Validates incoming request schemas, performs idempotency verification, checks Redis for early rejection of sold-out items, and coordinates PostgreSQL pessimistic row-level transactions.",
       whyUsed:
-        "FastAPI's asynchronous ASGI architecture handles thousands of concurrent I/O connections efficiently on a single process without blocking threads.",
+        "FastAPI's asynchronous ASGI architecture processes 1,000+ req/sec with less than 150ms latency on a single process without blocking threads.",
       interactions: [
-        "Receives HTTP requests from the Checkout Client.",
-        "Executes atomic Redis Lua script via connection pool (`redis-py`).",
-        "Dispatches successful order events to PostgreSQL write queue asynchronously.",
-        "Returns immediate HTTP 200 or 429 status back to the client.",
+        "Receives HTTP requests with idempotency keys from the Checkout Client.",
+        "Performs sub-millisecond stock availability checks against Redis cache.",
+        "Executes atomic ACID transactions in PostgreSQL using pessimistic row-level locking.",
+        "Returns immediate HTTP 200 (Reserved) or 410 (Sold Out) status back to the client.",
       ],
       failureScenarios: [
         {
-          scenario: "Process crash under sudden memory pressure",
+          scenario: "Process crash under sudden surge pressure",
           mitigation:
-            "Stateless container deployment behind a reverse proxy; unhealthy instances are automatically recycled with zero state loss.",
+            "Stateless container deployment behind Docker reverse proxy; unhealthy worker processes are automatically recycled with zero data loss.",
         },
         {
           scenario: "Redis connection pool timeout during surge",
           mitigation:
-            "Circuit breaker trips after 50ms; fast-fails with 503 Service Unavailable to protect internal services from cascading queue exhaustion.",
+            "Fallback circuit breaker queries PostgreSQL with bounded row locks, ensuring zero overselling even if cache is temporarily degraded.",
         },
       ],
       designTradeoffs: [
         {
-          decision: "Stateless microservice vs. in-memory application state",
+          decision: "Stateless microservice vs. In-memory local application state",
           rationale:
-            "Maintaining inventory counters inside Python process memory would prevent horizontal multi-container scaling. Redis acts as the centralized in-memory state authority.",
+            "Maintaining inventory counters inside local process memory prevents horizontal multi-container scaling. Redis acts as the centralized fast-rejection authority.",
         },
       ],
     },
     {
       id: "redis-guard",
       name: "Redis In-Memory Engine",
-      technology: "Redis 7.x (Cluster / Sentinel)",
-      role: "Atomic Concurrency Boundary",
+      technology: "Redis 7.x (Cluster / In-Memory)",
+      role: "Early Rejection & Idempotency Cache",
       category: "cache",
       accent: "emerald",
       responsibility:
-        "Enforces the inventory boundary in sub-millisecond memory. Executes a deterministic Lua script that checks available stock and decrements atomically in a single CPU cycle.",
+        "Provides fast inventory balance checks and immediate early rejection of sold-out requests, offloading over 95% of unnecessary traffic from the relational database during high-concurrency spikes.",
       whyUsed:
-        "Redis operates single-threaded per shard, guaranteeing that concurrent decrements are evaluated sequentially without relational lock contention, race conditions, or deadlocks.",
+        "Operating in-memory at sub-millisecond speeds, Redis eliminates database query storms once finite stock reaches zero.",
       interactions: [
-        "Evaluates Lua script invoked by FastAPI application.",
-        "Maintains atomic stock integer keys (`stock:item_id`).",
-        "Records temporary user hold hashes with 10-minute TTL expiry.",
+        "Validates cached stock levels for inbound requests.",
+        "Fast-rejects requests when stock == 0 with instant 410 Sold Out.",
+        "Caches completed idempotency keys with 24-hour TTL to prevent double billing.",
       ],
       failureScenarios: [
         {
-          scenario: "Redis primary node crash during flash sale",
+          scenario: "Redis instance restart or failover",
           mitigation:
-            "Redis Sentinel promotes standby replica in <2 seconds. Append-Only File (AOF) persistence with `appendfsync everysec` limits potential data loss to <1 second.",
+            "PostgreSQL remains the audited source of truth; remaining inventory is re-synchronized to Redis upon restart.",
         },
         {
-          scenario: "Key eviction under high memory load",
+          scenario: "Key eviction under memory limits",
           mitigation:
-            "`noeviction` maxmemory policy configured so Redis rejects writes rather than silently evicting active inventory or reservation keys.",
+            "`noeviction` maxmemory policy configured so Redis rejects writes rather than silently evicting active inventory keys.",
         },
       ],
       designTradeoffs: [
         {
-          decision: "Redis Lua script vs. PostgreSQL row-level locks",
+          decision: "In-memory early rejection filter vs. Direct database query",
           rationale:
-            "PostgreSQL row locks (`SELECT ... FOR UPDATE`) scale sequentially, creating database connection starvation during surges. Redis Lua achieves sub-millisecond throughput at the cost of eventual database consistency.",
+            "Under 5,000+ concurrent requests, hitting PostgreSQL for sold-out items saturates connection pools. Redis filters redundant hits in sub-millisecond memory cycles.",
         },
       ],
     },
@@ -121,35 +121,36 @@ export const flashSaleArchitectureData: SystemArchitectureSpec = {
       id: "postgresql-store",
       name: "PostgreSQL Database",
       technology: "PostgreSQL 16 (ACID Relational)",
-      role: "Audited Persistence & Source of Truth",
+      role: "Pessimistic Row-Level Lock & Audited Persistence",
       category: "database",
       accent: "amber",
       responsibility:
-        "Stores finalized orders, customer payment receipts, inventory reconciliation records, and immutable financial audit logs.",
+        "Guarantees absolute zero overselling under 5,000+ concurrent requests using isolated ACID transactions and pessimistic row-level locking (`SELECT ... FOR UPDATE`). Stores finalized audited orders and idempotency records.",
       whyUsed:
-        "Strict ACID compliance, relational integrity constraints, foreign key validation, and guaranteed persistence required for business auditing and fulfillment.",
+        "Strict ACID compliance, row-level locks, foreign keys, and write-ahead logging (WAL) ensure financial-grade transactional safety.",
       interactions: [
-        "Receives asynchronous order insert jobs from FastAPI background queue workers.",
-        "Validates uniqueness constraints (prevents duplicate orders for same user).",
-        "Serves post-sale fulfillment queries and accounting reports.",
+        "Acquires exclusive pessimistic row lock on inventory SKU row.",
+        "Verifies available balance >= requested quantity inside active transaction.",
+        "Atomically decrements stock and inserts order audit receipt.",
+        "Commits transaction and releases row lock in <15ms.",
       ],
       failureScenarios: [
         {
-          scenario: "Write queue backpressure slows persistence",
+          scenario: "Simultaneous SKU contention creating deadlocks",
           mitigation:
-            "Customer already holds confirmed reservation in Redis; PostgreSQL write lag does not block user checkout response or lose reservations.",
+            "Deterministic global SKU locking order and lock acquisition timeouts with exponential backoff on retryable serialization errors.",
         },
         {
-          scenario: "Disk I/O saturation on primary",
+          scenario: "Connection pool exhaustion under peak spikes",
           mitigation:
-            "Background workers batch inserts into multi-row statements (`INSERT INTO orders VALUES (...), (...)`) reducing WAL write amplification.",
+            "Pessimistic transactions are kept strictly bounded to sub-15ms, and connection pool sizing is tuned to match available CPU cores.",
         },
       ],
       designTradeoffs: [
         {
-          decision: "Asynchronous decoupled writes vs. synchronous transactional commit",
+          decision: "Pessimistic row locking (`SELECT ... FOR UPDATE`) vs. Optimistic retry loops",
           rationale:
-            "Writing to PostgreSQL synchronously on every checkout attempt creates catastrophic lock contention during spikes. Moving persistence to background workers protects database stability.",
+            "Under extreme contention (>5,000 requests for 50 items), optimistic retry loops cause massive thrashing where 99% of transactions abort and retry repeatedly, generating severe CPU spikes. Pessimistic row locking guarantees deterministic queueing with zero duplicate order risk.",
         },
       ],
     },
@@ -172,27 +173,27 @@ export const flashSaleArchitectureData: SystemArchitectureSpec = {
       id: "fastapi-to-redis",
       sourceId: "fastapi-app",
       targetId: "redis-guard",
-      name: "Atomic Inventory Evaluation",
+      name: "Fast Inventory & Rejection Filter",
       protocol: "Redis RESP / TCP Pool",
       trafficType: "Synchronous",
-      dataPayload: "EVAL reserve_inventory.lua 2 stock:sku_982 resv:usr_441 1 600",
+      dataPayload: "GET stock:sku_982\nSETNX idem:uuid-v4 PENDING EX 86400",
       description:
-        "FastAPI executes atomic Lua script in Redis memory. If stock > 0, decrements and issues 10-minute reservation hold. Response is returned in <1ms.",
+        "FastAPI executes instant memory check in Redis. If stock == 0, immediately returns 410 Sold Out to drop sold-out traffic before touching the database. Idempotency keys are cached to ensure safe client retries.",
       failureHandling:
-        "50ms connection timeout. If Redis is unreachable, fast-fails to client with 503 instead of hanging the connection pool.",
+        "50ms connection timeout. If Redis is degraded, circuit breaker falls back to bounded PostgreSQL queries with row locks.",
     },
     {
       id: "fastapi-to-postgres",
       sourceId: "fastapi-app",
       targetId: "postgresql-store",
-      name: "Asynchronous Order Persistence",
-      protocol: "PostgreSQL Native / Async Workers",
-      trafficType: "Asynchronous / Background",
-      dataPayload: "INSERT INTO orders (id, user_id, item_id, status, created_at)\nVALUES ('ord_102', 'usr_441', 'sku_982', 'RESERVED', NOW());",
+      name: "Pessimistic Row-Level Transaction",
+      protocol: "PostgreSQL Native / SQLAlchemy Pool",
+      trafficType: "Synchronous",
+      dataPayload: "BEGIN;\nSELECT available_stock FROM inventory WHERE id = 'sku_982' FOR UPDATE;\nUPDATE inventory SET available_stock = available_stock - 1 WHERE id = 'sku_982';\nINSERT INTO orders (id, user_id, item_id, idempotency_key) VALUES ('ord_102', 'usr_441', 'sku_982', 'uuid-v4');\nCOMMIT;",
       description:
-        "Once Redis confirms inventory allocation, order creation jobs are enqueued and persisted to PostgreSQL asynchronously, shielding relational tables from burst traffic.",
+        "When Redis confirms available stock, FastAPI opens an ACID transaction with pessimistic row lock (`SELECT ... FOR UPDATE`), decrements inventory, and commits audited order records, guaranteeing zero overselling under 5,000+ concurrent requests.",
       failureHandling:
-        "Workers retry with exponential backoff on transient DB lock errors. Dead-letter queue captures unrecoverable write exceptions for manual audit.",
+        "Automatic rollback on transaction abort; deterministic lock acquisition timeouts with exponential backoff on transient contention.",
     },
   ],
 };

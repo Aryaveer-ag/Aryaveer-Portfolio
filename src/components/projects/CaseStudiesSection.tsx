@@ -60,7 +60,7 @@ export function CaseStudiesSection() {
           description="In-depth architectural breakdowns of distributed systems, machine learning pipelines, and computer vision models. Inspect sequence topologies, tradeoff analyses, failure modes, and implementation code."
           action={
             <Badge variant="cyan" mono size="sm">
-              3 Deep-Dive Systems
+              {caseStudiesData.length} Deep-Dive Systems
             </Badge>
           }
         />
@@ -73,7 +73,7 @@ export function CaseStudiesSection() {
         />
 
         {/* Case Studies Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredProjects.map((project) => (
             <CaseStudyCard
               key={project.id}

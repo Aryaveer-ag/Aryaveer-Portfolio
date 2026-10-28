@@ -24,12 +24,12 @@ export function FeaturedProjects() {
           description="Technical case studies and implementations emphasizing distributed concurrency, grounded semantic intelligence, and computer vision quality inspection."
           action={
             <Badge variant="cyan" mono size="sm">
-              3 Featured Systems
+              {featuredProjects.length} Flagship Systems
             </Badge>
           }
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {featuredProjects.map((project) => (
             <Card
               key={project.id}

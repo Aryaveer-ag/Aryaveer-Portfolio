@@ -61,7 +61,7 @@ export default function NotFound() {
 
       {/* Footer Note */}
       <footer className="border-t border-[var(--border-subtle)] py-6 text-center text-xs font-mono text-[var(--text-muted)]">
-        Aryaveer Agarwal • Delhi Technological University (DTU, 2026)
+        Aryaveer Agarwal • Delhi Technological University (DTU, 2023–2027)
       </footer>
     </div>
   );

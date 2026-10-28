@@ -391,8 +391,8 @@ export function ClosingCTA() {
                         <option value="Systems Profiling & Code Modernization">
                           Systems Profiling &amp; Code Modernization (TypeScript refactoring, performance)
                         </option>
-                        <option value="Full-time Engineering Role">
-                          Full-time Engineering Opportunity (2026 Graduating Class)
+                        <option value="Engineering Opportunity">
+                          Full-time / Internship Engineering Opportunity (Class of 2027)
                         </option>
                         <option value="General Technical Inquiry">
                           General Technical Inquiry

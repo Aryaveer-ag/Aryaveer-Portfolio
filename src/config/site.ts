@@ -17,18 +17,23 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   name: "Aryaveer.dev",
-  title: "Aryaveer.dev — Interactive Engineering Studio",
+  title: "Aryaveer Agarwal — Software & AI Systems Engineer",
   description:
-    "Engineering portfolio and interactive studio of Aryaveer Agarwal — Software engineering, backend systems, machine learning, and DSA.",
+    "Engineering portfolio of Aryaveer Agarwal — High-concurrency backend architectures, Agentic RAG pipelines, machine learning, and computer vision.",
   author: {
     name: "Aryaveer Agarwal",
     institution: "Delhi Technological University",
-    status: "Final-year B.Tech Student",
-    domains: ["Software Development", "Backend Systems", "Machine Learning", "DSA"],
+    status: "B.Tech in Electronics and Communications Engineering (2023–2027)",
+    domains: [
+      "Backend & Distributed Systems",
+      "AI & Agentic RAG Pipelines",
+      "Computer Vision & ML",
+      "Algorithmic Problem Solving",
+    ],
   },
   links: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    github: "https://github.com/Aryaveer-ag",
+    linkedin: "https://linkedin.com/in/aryaveer-agarwal-dtu/",
     upwork: "https://upwork.com",
   },
 };

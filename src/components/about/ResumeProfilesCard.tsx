@@ -45,8 +45,9 @@ export function ResumeProfilesCard() {
               Comprehensive resume detailing academic coursework at Delhi Technological University (DTU), software engineering projects, system architectures, and technical competencies.
             </p>
             <div className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--bg-base)] border border-[var(--border-subtle)] font-mono text-[11px] text-[var(--text-muted)] space-y-1">
-              <div><strong className="text-[var(--text-primary)]">Status:</strong> Final-Year B.Tech Student (2026)</div>
-              <div><strong className="text-[var(--text-primary)]">Availability:</strong> Full-time Engineering &amp; Contract Work</div>
+              <div><strong className="text-[var(--text-primary)]">Program:</strong> B.Tech in Electronics &amp; Communication (2023–2027)</div>
+              <div><strong className="text-[var(--text-primary)]">Institution:</strong> Delhi Technological University (DTU)</div>
+              <div><strong className="text-[var(--text-primary)]">Availability:</strong> Software Engineering &amp; High-Impact Contract Work</div>
             </div>
           </CardContent>
         </div>
@@ -98,7 +99,7 @@ export function ResumeProfilesCard() {
                   rel="noopener noreferrer"
                   className="text-[var(--accent-cyan)] hover:underline inline-flex items-center gap-1"
                 >
-                  <span>github.com</span>
+                  <span>github.com/Aryaveer-ag</span>
                   <span className="text-[10px]">↗</span>
                 </a>
               </div>
@@ -111,7 +112,7 @@ export function ResumeProfilesCard() {
                   rel="noopener noreferrer"
                   className="text-[var(--accent-indigo)] hover:underline inline-flex items-center gap-1"
                 >
-                  <span>linkedin.com</span>
+                  <span>in/aryaveer-agarwal-dtu</span>
                   <span className="text-[10px]">↗</span>
                 </a>
               </div>

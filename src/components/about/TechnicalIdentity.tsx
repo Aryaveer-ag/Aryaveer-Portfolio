@@ -19,7 +19,7 @@ export function TechnicalIdentity() {
         <SectionHeading
           eyebrow="02 // TECHNICAL IDENTITY"
           title="Areas of Specialization &amp; Engineering Focus"
-          description="Final-year B.Tech student at Delhi Technological University combining rigorous foundational computer science with production-oriented software development."
+          description="B.Tech student in Electronics and Communications Engineering at Delhi Technological University combining rigorous computer science with production-oriented software development."
           action={
             <Badge variant="indigo" mono size="sm">
               4 Core Focus Areas

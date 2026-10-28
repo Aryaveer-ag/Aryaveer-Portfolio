@@ -12,6 +12,7 @@ import {
 } from "@/components/common";
 import { SkillsExplorer } from "@/components/skills/SkillsExplorer";
 import { ResumeProfilesCard } from "@/components/about/ResumeProfilesCard";
+import { ExperienceAndLeadership } from "@/components/about/ExperienceAndLeadership";
 
 export function AboutSection() {
   const interests = [
@@ -75,10 +76,10 @@ export function AboutSection() {
         <SectionHeading
           eyebrow="03 // BACKGROUND & TECHNICAL IDENTITY"
           title="Engineering Foundations &amp; Academic Background"
-          description="A grounded profile of Aryaveer Agarwal: final-year B.Tech student at Delhi Technological University combining algorithmic principles with production-grade system design."
+          description="A grounded profile of Aryaveer Agarwal: undergraduate engineering student at Delhi Technological University combining algorithmic principles with production-grade system design."
           action={
             <Badge variant="emerald" mono size="sm">
-              DTU Class of 2026
+              DTU Class of 2027
             </Badge>
           }
         />
@@ -89,11 +90,11 @@ export function AboutSection() {
           <div className="lg:col-span-7 space-y-6">
             <div className="prose prose-invert max-w-none text-sm text-[var(--text-secondary)] leading-relaxed space-y-4">
               <p>
-                I am a final-year undergraduate engineering student at{" "}
+                I am an undergraduate engineering student at{" "}
                 <strong className="text-[var(--text-primary)] font-semibold">
                   Delhi Technological University (DTU)
                 </strong>
-                , completing my Bachelor of Technology degree (graduating in 2026). My technical path is defined by a focus on engineering truthfulness: understanding how systems behave when pushed to concurrency limits, how distributed state remains consistent, and how machine learning components can be integrated without hallucination or fragility.
+                , pursuing my Bachelor of Technology degree in Electronics and Communications Engineering (2023–2027). My technical path is defined by a focus on engineering truthfulness: understanding how systems behave when pushed to concurrency limits, how distributed state remains consistent, and how machine learning components can be integrated without hallucination or fragility.
               </p>
               <p>
                 Rather than treating software as a collection of disconnected frameworks, I concentrate on fundamental mechanisms: memory layouts, event-driven I/O loops, atomic operations in Redis, schema constraints in relational databases, and verifiable convergence in deep learning models.
@@ -157,19 +158,19 @@ export function AboutSection() {
                   <div className="flex justify-between">
                     <span className="text-[var(--text-muted)]">Program:</span>
                     <span className="text-[var(--text-primary)] font-medium">
-                      Bachelor of Technology (B.Tech)
+                      Bachelor of Technology (B.Tech, ECE)
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[var(--text-muted)]">Graduation:</span>
                     <span className="text-[var(--accent-emerald)] font-medium">
-                      Class of 2026 (Final Year)
+                      Class of 2027 (2023–2027)
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--text-muted)]">Concentration:</span>
+                    <span className="text-[var(--text-muted)]">Major:</span>
                     <span className="text-[var(--text-primary)] font-medium">
-                      Software Engineering &amp; Systems
+                      Electronics and Communications Engineering
                     </span>
                   </div>
                 </div>
@@ -204,8 +205,13 @@ export function AboutSection() {
           </div>
         </div>
 
+        {/* Experience, Leadership & Certifications */}
+        <div className="pt-8 border-t border-[var(--border-subtle)]">
+          <ExperienceAndLeadership />
+        </div>
+
         {/* Resume and External Profile Links */}
-        <div className="pt-6 border-t border-[var(--border-subtle)]">
+        <div className="pt-8 border-t border-[var(--border-subtle)]">
           <div className="mb-6">
             <h3 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
               <span>Resume &amp; Professional Channels</span>
