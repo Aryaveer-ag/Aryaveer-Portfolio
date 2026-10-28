@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { ParticleNetwork } from "./ParticleNetwork";
 
 /**
  * InteractiveBackground
@@ -174,6 +175,9 @@ export function InteractiveBackground() {
             "radial-gradient(320px circle at var(--pointer-x, 50%) var(--pointer-y, 25%), black 0%, transparent 80%)",
         }}
       />
+
+      {/* Layer 4: Sparse Engineering Particle Network (Faint nodes & telemetry lines) */}
+      <ParticleNetwork />
     </div>
   );
 }
