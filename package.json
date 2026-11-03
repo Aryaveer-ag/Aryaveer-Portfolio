@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node -e \"const fs=require('fs'); if(fs.existsSync('.next')) fs.rmSync('.next',{recursive:true,force:true})\"",
     "build": "next build --webpack",
     "start": "next start",
     "test": "node --test --experimental-strip-types tests/*.test.ts",
@@ -16,7 +15,7 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
